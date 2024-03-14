@@ -1,0 +1,6 @@
+/* Custom styling for active NavLink */
+.nav-link.active {
+  /* Your custom styles for the active state */
+  color: blue;
+  font-weight: bold;
+}

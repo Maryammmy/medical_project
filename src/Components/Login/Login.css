@@ -1,0 +1,22 @@
+
+.icon-password{
+    position: absolute;
+   right: 10px;
+   bottom: 10px;
+   
+    color: rgba(167, 118, 103, 1);
+}
+.color-login{
+    color: rgba(38, 50, 56, 0.8);
+}
+.but{
+    background-color: rgba(38, 50, 56, 1) !important;
+    color: white !important;
+    font-weight: 700 !important;
+}
+h2{
+    color: rgba(38, 50, 56, 1) !important; 
+}
+.col-img{
+    background-color: rgba(20, 43, 55, 1);
+}
