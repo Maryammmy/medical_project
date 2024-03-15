@@ -57,7 +57,7 @@ export default function Login() {
   });
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid pb-5">
     <div className="row">
       <div className="col-md-6 col-img vh-100">
         <div><img src={logologin} alt="" /></div>
