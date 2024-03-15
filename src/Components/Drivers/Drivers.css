@@ -1,0 +1,40 @@
+.h-color{
+    color: rgba(11, 37, 51, 1);
+}
+.i-color{
+color: rgba(136, 136, 136, 1);
+}
+.badge-color{
+    background-color: rgba(255, 0, 0, 1);
+}
+.btn-bg{
+    background-color: rgba(255, 0, 0, 1) !important;
+    color: white !important;
+    font-weight: 600 !important;
+}
+.container-bg{
+    background-color:whitesmoke;
+}
+.text-color{
+  color:rgba(136, 136, 136, 1) ;  
+  font-weight: 600;
+}
+.row-bg{
+    background-color: rgba(243, 243, 243, 1);
+}
+.img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.brdr{
+    border-bottom: 2px solid rgba(243, 243, 243, 1);
+}
+.name-color{
+    color:rgba(11, 37, 51, 1) ;
+}
+.link{
+    text-decoration: none;
+    color:rgba(11, 37, 51, 1) ;
+   
+}

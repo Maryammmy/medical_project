@@ -6,12 +6,14 @@ import * as yup from 'yup';
 import axios from 'axios';
 import imglogin from '../../assets/images/Navigation-pana 1.svg';
 import logologin from '../../assets/images/LOGO1_Medicurb_page-0001-removebg-preview 1.svg';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
 
   const [apiError, setApiError] = useState(null);
   const[show,setshow] =useState(false)
   const [btnloading,setbtnloading] =useState(false)
+  const navigate =useNavigate()
   const onShowHide =()=>{
     setshow((prev)=>!prev)
   }
@@ -23,6 +25,7 @@ export default function Login() {
       .then((response) => {
         console.log("API Response:", response);
         localStorage.setItem('token',response.data.token)
+        navigate('/dashboard')
         setbtnloading(false)
         // Handle successful response if needed
       })
@@ -57,7 +60,7 @@ export default function Login() {
   });
 
   return (
-    <div className="container-fluid pb-5">
+    <div className="container-fluid">
     <div className="row">
       <div className="col-md-6 col-img vh-100">
         <div><img src={logologin} alt="" /></div>
