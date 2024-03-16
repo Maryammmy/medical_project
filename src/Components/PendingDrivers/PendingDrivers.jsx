@@ -8,7 +8,7 @@ export default function PendingDrivers() {
   const token = localStorage.getItem('token');
   async function getpendingdrivers(){
     try  {
-       const data = await axios.get('https://frail-elk-pea-coat.cyclic.app/api/Admin/PendingDrivers/0', {
+       const data = await axios.get('https://medicurb.onrender.com/api/Admin/PendingDrivers/0', {
          headers: {
            'Authorization': `Bearer ${token}`,
          },

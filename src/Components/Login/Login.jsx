@@ -21,7 +21,7 @@ export default function Login() {
 
   function getdatafromapi(values) {
     setbtnloading(true)
-    axios.post('https://frail-elk-pea-coat.cyclic.app/api/Admin/Login',values)
+    axios.post('https://medicurb.onrender.com/api/Admin/Login',values)
       .then((response) => {
         console.log("API Response:", response);
         localStorage.setItem('token',response.data.token)

@@ -11,7 +11,7 @@ export default function Drivers() {
   const token = localStorage.getItem('token');
   async function getdrivers(){
    try  {
-      const data = await axios.get('https://frail-elk-pea-coat.cyclic.app/api/Admin/Drivers/0', {
+      const data = await axios.get('https://medicurb.onrender.com/api/Admin/Drivers/0', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
