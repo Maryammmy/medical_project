@@ -16,7 +16,8 @@
     background-color: red; /* Change the background color to your desired color */
   }
 nav{
-    min-height: fit-content;
+    min-height: 100vh;
 }
+
 
 
