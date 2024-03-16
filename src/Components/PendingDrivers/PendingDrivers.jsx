@@ -32,7 +32,7 @@ export default function PendingDrivers() {
      if (loading)  return <Loading/>
   return (
     <>
-    <div className="container">
+    <div className="container-fluid">
       < div className="d-flex justify-content-between py-3">
        <h2 className='h-color'> Pending Drivers</h2>
      <div  className=" position-relative">
@@ -50,7 +50,7 @@ export default function PendingDrivers() {
           <input type="search" className='form-control w-25' placeholder='search'  />
           <button className='btn btn-bg'> + Add Drivers</button>
         </div>
-        <div className="container bg-white py-3 px-5 text-color text-center rounded-3">
+        <div className="container-fluid bg-white py-3 px-5 text-color text-center rounded-3">
   <div className="row row-bg py-3 rounded-3">  
     <div className="col-md-2">Name</div>
     <div className="col-md-2">Address</div>
@@ -73,9 +73,6 @@ export default function PendingDrivers() {
  
 </div>
       </div>
-
-   
-    
       </>
   )
 }

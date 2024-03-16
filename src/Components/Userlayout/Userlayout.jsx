@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import Sidebar from '../Sidebar/Sidebar'
 import { Outlet } from 'react-router-dom'
+import { storecontext } from '../Context/StorecontextProvider'
 
 export default function Userlayout() {
+ let {isOpen} =useContext(storecontext)
   return (
-    <div className='container-fluid'>
-      <div className="row">
-        <div className="col-md-2 bg-color p-0"><Sidebar/></div>
-        <div className="col-md-10 p-0"> <Outlet/></div>  
-    </div>
-    </div>
+   <div className='d-flex '>
+  <div><Sidebar/></div>
+  <div className='m-auto'style={{width: isOpen? "84%" :'99%'}}><Outlet/></div>
+     </div>
   )
 }

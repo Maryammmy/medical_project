@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Loading from '../Loading/Loading';
 import './Drivers.css'
 import { Link } from 'react-router-dom';
+import Driverdetails from '../Driverdetails/Driverdetails';
 
 export default function Drivers() {
   const [drivers,setdrivers] =useState([])
@@ -32,7 +33,7 @@ export default function Drivers() {
     if (loading)  return <Loading/>
   return (
     <>
-    <div className="container">
+    <div className="container-fluid">
       < div className="d-flex justify-content-between py-3">
        <h2 className='h-color'>Drivers</h2>
      <div  className=" position-relative">
@@ -50,7 +51,7 @@ export default function Drivers() {
           <input type="search" className='form-control w-25' placeholder='search'  />
           <button className='btn btn-bg'> + Add Drivers</button>
         </div>
-        <div className="container bg-white py-3 px-5 text-color text-center rounded-3">
+        <div className="container-fluid bg-white py-3 px-5 text-color text-center rounded-3">
   <div className="row row-bg py-3 rounded-3">  
     <div className="col-md-2">Name</div>
     <div className="col-md-2">Address</div>
@@ -61,11 +62,7 @@ export default function Drivers() {
   </div>
   {drivers.map((item)=>{
     return  <div className="row my-3 py-3 brdr" key={item._id}>
-    <div className="col-md-2 d-flex justify-content-evenly"><span><img src={item.user.profileImage} alt="" className='img'  /></span>
-    <Link className='link' to={'/driverdetails/' + item._id}><span >{item.user.firstName}</span></Link>
-  
-    </div>
-
+    <div className="col-md-2 d-flex justify-content-evenly name-color"><span><img src={item.user.profileImage} alt="" className='img'  /></span><span >{item.user.firstName}</span></div>
     <div className="col-md-2">{item.location.address.split(' ').slice(0,3).join(' ')}</div>
     <div className="col-md-2">{item.user.phone}</div>
     <div className="col-md-2"></div>
@@ -77,9 +74,6 @@ export default function Drivers() {
  
 </div>
       </div>
-
-   
-    
       </>
   )
 }

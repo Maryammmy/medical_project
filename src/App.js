@@ -12,6 +12,7 @@ import Userlayout from "./Components/Userlayout/Userlayout";
 import Driverdetails from "./Components/Driverdetails/Driverdetails";
 import ProtectedRoutes from "./Components/ProtectedRoutes/ProtectedRoutes";
 import Authlayout from "./Components/Authlayout/Authlayout";
+import Storecontextprovider from "./Components/Context/StorecontextProvider";
 
 export default function App() {
   let routes = createBrowserRouter([
@@ -20,29 +21,84 @@ export default function App() {
       element: <Userlayout />,
 
       children: [
-        { index: true, element:<ProtectedRoutes><Dashboard /></ProtectedRoutes>   },
-        { path: "dashboard", element:<ProtectedRoutes><Dashboard /></ProtectedRoutes>  },
-        { path: "drivers", element: <ProtectedRoutes><Drivers /></ProtectedRoutes> },
-        { path: "reports", element: <ProtectedRoutes><Reports /></ProtectedRoutes>  },
-        { path: "pendingdrivers", element: <ProtectedRoutes><PendingDrivers /></ProtectedRoutes>  },
-        { path: "trips", element: <ProtectedRoutes><Trips /></ProtectedRoutes>  },
-        { path: "allocatedrivers", element: <ProtectedRoutes><AllocateDriver /></ProtectedRoutes>  },
-        { path: "driverdetails/:id", element:<ProtectedRoutes><Driverdetails /></ProtectedRoutes>  },
+        {
+          index: true,
+          element: (
+            <ProtectedRoutes>
+              <Dashboard />
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "dashboard",
+          element: (
+            <ProtectedRoutes>
+              <Dashboard />
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "drivers",
+          element: (
+            <ProtectedRoutes>
+              <Drivers />
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "reports",
+          element: (
+            <ProtectedRoutes>
+              <Reports />
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "pendingdrivers",
+          element: (
+            <ProtectedRoutes>
+              <PendingDrivers />
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "trips",
+          element: (
+            <ProtectedRoutes>
+              <Trips />
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "allocatedrivers",
+          element: (
+            <ProtectedRoutes>
+              <AllocateDriver />
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "driverdetails/:id",
+          element: (
+            <ProtectedRoutes>
+              <Driverdetails />
+            </ProtectedRoutes>
+          ),
+        },
       ],
     },
     {
       path: "/",
-      element: <Authlayout/>,
+      element: <Authlayout />,
       children: [
-        { path: "/", element: <Login/> },
-        { path: "login", element: <Login/> },
-       
+        { path: "/", element: <Login /> },
+        { path: "login", element: <Login /> },
       ],
     },
   ]);
   return (
-    <div>
-      <RouterProvider router={routes} />
-    </div>
+  <Storecontextprovider>
+     <RouterProvider router={routes} />
+  </Storecontextprovider>
   );
 }

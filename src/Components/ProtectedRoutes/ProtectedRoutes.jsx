@@ -7,6 +7,7 @@ export default function ProtectedRoutes({children}) {
 try {
     const decoded = jwtDecode(token);
     console.log(decoded);
+  
    
 }
 catch (error){
