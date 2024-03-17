@@ -33,8 +33,52 @@ color: rgba(136, 136, 136, 1);
 .name-color{
     color:rgba(11, 37, 51, 1) ;
 }
-.link{
+.Link{
     text-decoration: none;
     color:rgba(11, 37, 51, 1) ;
    
 }
+.imgg{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+.off{
+    color: rgba(255, 0, 0, 0.755);
+    font-size: 8px;
+}
+.on{
+    color: rgba(85, 196, 46, 1);
+    font-size: 8px;
+}
+.red-color{
+    color: rgba(255, 0, 0, 1) ;
+    font-weight: 700;
+}
+.i-color{
+    color: rgba(38, 50, 56, 0.8);
+    padding-right: 5px;
+}
+.p-color{
+    color: rgba(11, 37, 51, 1);
+
+}
+.content-color{
+    color: rgba(11, 37, 51, 0.5);
+    padding-right: 10px;
+}
+.images{
+    width: 70px; 
+    height: 70px;
+    overflow: hidden;
+    border-radius: 50%;
+    
+}
+.images img{
+height: 100%;
+  width: 100%; 
+  object-fit: fill;
+  object-position: top left;
+}
+ 
+  

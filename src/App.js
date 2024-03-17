@@ -13,6 +13,7 @@ import Driverdetails from "./Components/Driverdetails/Driverdetails";
 import ProtectedRoutes from "./Components/ProtectedRoutes/ProtectedRoutes";
 import Authlayout from "./Components/Authlayout/Authlayout";
 import Storecontextprovider from "./Components/Context/StorecontextProvider";
+import Notfound from "./Components/Notfound/Notfound";
 
 export default function App() {
   let routes = createBrowserRouter([
@@ -78,13 +79,14 @@ export default function App() {
           ),
         },
         {
-          path: "driverdetails/:id",
+          path: "driverdetails",
           element: (
             <ProtectedRoutes>
               <Driverdetails />
             </ProtectedRoutes>
           ),
         },
+        { path: "*", element: <Notfound/> },
       ],
     },
     {
@@ -97,8 +99,8 @@ export default function App() {
     },
   ]);
   return (
-  <Storecontextprovider>
-     <RouterProvider router={routes} />
-  </Storecontextprovider>
+    <Storecontextprovider>
+      <RouterProvider router={routes} />
+    </Storecontextprovider>
   );
 }

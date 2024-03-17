@@ -8,7 +8,7 @@ export default function Userlayout() {
   return (
    <div className='d-flex '>
   <div className='bg-color'><Sidebar/></div>
-  <div className='m-auto'style={{width: isOpen? "84%" :'99%'}}><Outlet/></div>
+  <div style={{width: isOpen? "84%" :'99%'}}><Outlet/></div>
      </div>
   )
 }
