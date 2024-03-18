@@ -8,10 +8,10 @@ export default function PendingDrivers() {
   const [pendingdrivers,setpendingdrivers] =useState([])
   const [loading,setloading] =useState(true)
   const token = localStorage.getItem('token');
-  let {handleLinkClick,selectedItemId} =useContext(storecontext)
+  let {handleLinkClick,baseUrl} =useContext(storecontext)
   async function getpendingdrivers(){
     try  {
-       const data = await axios.get('https://medicurb.onrender.com/api/Admin/PendingDrivers/0', {
+       const data = await axios.get(`${baseUrl}/api/Admin/PendingDrivers/0`, {
          headers: {
            'Authorization': `Bearer ${token}`,
          },
@@ -36,7 +36,7 @@ export default function PendingDrivers() {
   return (
     <>
     <div className="container-fluid">
-      < div className="d-flex justify-content-between py-3">
+      < div className="d-flex justify-content-between py-3 widdth m-auto">
        <h2 className='h-color'> Pending Drivers</h2>
      <div  className=" position-relative">
      <i className="fa-regular fa-bell fs-4 i-color"></i>
@@ -49,7 +49,7 @@ export default function PendingDrivers() {
      </div>
       </div>
       <div className="container-fluid bg-light">
-        <div className='d-flex justify-content-between py-4'>
+        <div className='d-flex justify-content-between py-4 widdth m-auto'>
           <input type="search" className='form-control w-25' placeholder='search'  />
           <button className='btn btn-bg'> + Add Drivers</button>
         </div>
@@ -64,9 +64,10 @@ export default function PendingDrivers() {
   </div>
   {pendingdrivers.map((item)=>{
     return  <div className="row my-3 py-3 brdr" key={item._id}>
-     <div className="col-md-3 d-flex justify-content-evenly name-color"><span className='images'><img src={item.user.profileImage} alt=""/></span>
-<span  onClick={() => handleLinkClick (item._id)} data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" >{item.user.firstName}</span>
-<div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel"  style={{width:'300px' ,textAlign:'left'}} >
+     <div className="col-md-3 d-flex name-color align-items-center gap-3">
+      <div className='images'><img src={item.user.profileImage} alt=""/></div>
+<span  onClick={() => handleLinkClick (item._id)} data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" className='namee'>{item.user.firstName}</span>
+<div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel"  style={{width:'370px' ,textAlign:'left'}} >
   <div className="offcanvas-header">
     <h5 id="offcanvasRightLabel">Driverdetails</h5>
     <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>

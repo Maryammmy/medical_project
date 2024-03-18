@@ -8,14 +8,14 @@ export default function Driverdetails() {
   const token = localStorage.getItem('token');
   const [driverdetails, setDriverdetails] = useState({});
   const [loading, setLoading] = useState(true);
-  const { selectedItemId } = useContext(storecontext);
+  const { selectedItemId,baseUrl } = useContext(storecontext);
 
   useEffect(() => {
     async function getDriverdetails() {
       try {
         if (selectedItemId ) {
          setLoading(true)
-          const response = await axios.get(`https://medicurb.onrender.com/api/Admin/DriverDetails?id=${selectedItemId}`, {
+          const response = await axios.get(`${baseUrl}/api/Admin/DriverDetails?id=${selectedItemId}`, {
             headers: {
               'Authorization': `Bearer ${token}`,
             },

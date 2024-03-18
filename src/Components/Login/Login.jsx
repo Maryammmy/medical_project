@@ -1,12 +1,13 @@
 
 import './Login.css';
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
 import imglogin from '../../assets/images/Navigation-pana 1.svg';
 import logologin from '../../assets/images/LOGO1_Medicurb_page-0001-removebg-preview 1.svg';
 import { useNavigate } from 'react-router-dom';
+import { storecontext } from '../Context/StorecontextProvider';
 
 export default function Login() {
 
@@ -14,6 +15,8 @@ export default function Login() {
   const[show,setshow] =useState(false)
   const [btnloading,setbtnloading] =useState(false)
   const navigate =useNavigate()
+let {baseUrl} =useContext(storecontext)
+
   const onShowHide =()=>{
     setshow((prev)=>!prev)
   }
@@ -21,18 +24,18 @@ export default function Login() {
 
   function getdatafromapi(values) {
     setbtnloading(true)
-    axios.post('https://medicurb.onrender.com/api/Admin/Login',values)
+    axios.post(`${baseUrl}/api/Admin/Login`,values)
       .then((response) => {
         console.log("API Response:", response);
         localStorage.setItem('token',response.data.token)
         navigate('/dashboard')
         setbtnloading(false)
-        // Handle successful response if needed
+     
       })
       .catch((error) => {
         console.error("API Error:", error);
         if (error.response && error.response.data && error.response.data.message) {
-          setApiError(error.response.data.message); // Set the API error message in the state
+          setApiError(error.response.data.message); 
         } else {
           setApiError("An unexpected error occurred."); // Fallback error message
         }
