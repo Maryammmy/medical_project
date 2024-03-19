@@ -77,7 +77,7 @@ export default function PendingDrivers() {
     const currentPage = event.selected;
     try {
      
-      setloading(true)
+     
       const response = await axios.get(`${baseUrl}/api/Admin/PendingDrivers/${currentPage}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -85,7 +85,7 @@ export default function PendingDrivers() {
       });
       
       if (response.status === 200) {
-        setloading(false);
+        
         setpendingdrivers(response.data.data);
       }
     } catch (err) {

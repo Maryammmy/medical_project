@@ -130,12 +130,12 @@ export default function Drivers() {
   }
   
   const handlePageClick = async (event) => {
-    setloading(true); // Set loading state to true before fetching data
+    // setloading(true); 
     const currentPage = event.selected;
     const data = await getPage(currentPage);
     if (data.status==200) {
      setdrivers(data.data.data)
-     setloading(false)
+    //  setloading(false)
     
     } 
   }
