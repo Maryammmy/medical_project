@@ -5,8 +5,11 @@ import './Drivers.css'
 import Driverdetails from '../Driverdetails/Driverdetails';
 import { Link } from 'react-router-dom';
 import { storecontext } from '../Context/StorecontextProvider';
+import ReactPaginate from 'react-paginate';
+
 export default function Drivers() {
   const [drivers,setdrivers] =useState([])
+  const [pagecount,setpagecount] =useState(0)
   const [loading,setloading] =useState(true)
   const token = localStorage.getItem('token');
   let {handleLinkClick,baseUrl} =useContext(storecontext)
@@ -28,9 +31,114 @@ export default function Drivers() {
       console.log(err);
     }
   }
+  function getPageCount(){
+    axios.get(`${baseUrl}/api/Admin/Drivers/PagesCount`,{
+      headers:{
+        'Authorization': `Bearer ${token}`,
+      }
+    })
+    .then((data)=>{
+      console.log(data);
+      console.log(data.data.data)
+      setpagecount(Math.ceil(data.data.data))
+      
+    })
+    .catch(err=>console.log(err))
+      }
   useEffect(()=>{
     getdrivers()
+    getPageCount()
+    
   },[])
+  // function getPage(currentPage){
+  //    return axios.get(`${baseUrl}/api/Admin/Drivers/${currentPage}`,{
+  //     headers:{
+  //       'Authorization': `Bearer ${token}`,
+  //     }
+  //   })
+  //   .then((data)=>{
+  //     return data
+  //   })
+  //   .catch(err=>{
+  //     return err
+  //   }
+  //    )
+  //     }
+
+  // const handlePageClick = async (event) => {
+  //   setloading(true)
+  //  const currentPage = event.selected
+  // const data= await getPage(currentPage)
+  // if(data?.status==200){
+  //   setdrivers(data?.data?.data)
+    
+  //  }
+  //  setloading(false)
+ 
+ 
+  // };
+  // const handlePageClick = async (event) => {
+  //   const currentPage = event.selected;
+  //   try {
+  //     const response = await axios.get(`${baseUrl}/api/Admin/Drivers/${currentPage}`, {
+  //       headers: {
+  //         'Authorization': `Bearer ${token}`,
+  //       }
+  //     });
+      
+  //     if (response.status === 200) {
+  //       setloading(false);
+  //       setdrivers(response.data.data);
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+  // async function getPage(currentPage) {
+
+  //   try {
+  //     const response = await axios.get(`${baseUrl}/api/Admin/Drivers/${currentPage}`, {
+  //       headers: {
+  //         'Authorization': `Bearer ${token}`,
+  //       }
+  //     });
+  //     return response
+  //   } catch (err) {
+  //   console.log(err)
+  //   return err
+  //   } 
+  // }
+  // const handlePageClick = async (event) => {
+  //   setloading(true);
+  //   const currentPage = event.selected;
+  // const data =  await getPage(currentPage);
+  // setdrivers(data.data.data)
+  // setloading(false)
+  // };
+  async function getPage(currentPage) {
+    try {
+      const response = await axios.get(`${baseUrl}/api/Admin/Drivers/${currentPage}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }
+      });
+      return response;
+    } catch (err) {
+      console.log(err);
+      return err; // Return an error object to handle errors in the calling code
+    } 
+  }
+  
+  const handlePageClick = async (event) => {
+    setloading(true); // Set loading state to true before fetching data
+    const currentPage = event.selected;
+    const data = await getPage(currentPage);
+    if (data.status==200) {
+     setdrivers(data.data.data)
+     setloading(false)
+    
+    } 
+  }
 
 
   
@@ -90,6 +198,22 @@ export default function Drivers() {
  
 </div>
       </div>
+      <ReactPaginate
+        nextLabel="next"
+        pageCount={pagecount}
+        onPageChange={handlePageClick}
+        previousLabel="previous"
+        containerClassName={'pagination justify-content-end pe-5'}
+        pageClassName={'page-item'}
+        pageLinkClassName={'page-link'}
+        previousClassName={'page-item'}
+        previousLinkClassName={'page-link'}
+        nextClassName={'page-item'}
+        nextLinkClassName={'page-link'}
+        breakClassName={'page-item'}
+        breakLinkClassName={'page-link'}
+        activeClassName={'active'}
+      />
       </>
   )
 }

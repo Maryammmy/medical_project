@@ -3,9 +3,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import Loading from '../Loading/Loading';
 import Driverdetails from '../Driverdetails/Driverdetails';
 import { storecontext } from '../Context/StorecontextProvider';
+import ReactPaginate from 'react-paginate';
 
 export default function PendingDrivers() {
   const [pendingdrivers,setpendingdrivers] =useState([])
+  const [pagecount,setpagecount] =useState(0)
   const [loading,setloading] =useState(true)
   const token = localStorage.getItem('token');
   let {handleLinkClick,baseUrl} =useContext(storecontext)
@@ -29,9 +31,68 @@ export default function PendingDrivers() {
        console.log(err);
      }
    }
+   function getPageCount(){
+    axios.get(`${baseUrl}/api/Admin/Drivers/PendingPagesCount`,{
+      headers:{
+        'Authorization': `Bearer ${token}`,
+      }
+    })
+    .then((data)=>{
+      console.log(data);
+      console.log(data.data.data)
+      setpagecount(Math.ceil(data.data.data))
+      
+    })
+    .catch(err=>console.log(err))
+      }
    useEffect(()=>{
     getpendingdrivers()
+    getPageCount()
+
    },[])
+   function getPage(currentPage){
+    setloading(true)
+    axios.get(`${baseUrl}/api/Admin/PendingDrivers/${currentPage}`,{
+      headers:{
+        'Authorization': `Bearer ${token}`,
+      }
+    })
+    .then((data)=>{
+      if(data.status==200){
+        console.log(data);
+        setloading(false)
+        setpendingdrivers(data.data.data)
+        console.log(data.data.data)
+      }
+    })
+    .catch(err=>console.log(err))
+      }
+    
+  // const handlePageClick = async (event) => {
+  //  const currentPage = event.selected
+  // const getPages = await getPage(currentPage)
+  
+  // };
+  const handlePageClick = async (event) => {
+    const currentPage = event.selected;
+    try {
+     
+      setloading(true)
+      const response = await axios.get(`${baseUrl}/api/Admin/PendingDrivers/${currentPage}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }
+      });
+      
+      if (response.status === 200) {
+        setloading(false);
+        setpendingdrivers(response.data.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
      if (loading)  return <Loading/>
   return (
     <>
@@ -88,6 +149,26 @@ export default function PendingDrivers() {
  
 </div>
       </div>
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel="next"
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={2}
+        pageCount={pagecount}
+        onPageChange={handlePageClick}
+        previousLabel="previous"
+        containerClassName={'pagination justify-content-end pe-5'}
+        pageClassName={'page-item'}
+        pageLinkClassName={'page-link'}
+        previousClassName={'page-item'}
+        previousLinkClassName={'page-link'}
+        nextClassName={'page-item'}
+        nextLinkClassName={'page-link'}
+        breakClassName={'page-item'}
+        breakLinkClassName={'page-link'}
+        activeClassName={'active'}
+       
+      />
       </>
   )
 }

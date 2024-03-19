@@ -85,3 +85,9 @@ color: rgba(136, 136, 136, 1);
 .namee{
     cursor: pointer;
 }
+.active>.page-link, .page-link.active {
+    z-index: 3;
+    color: var(--bs-pagination-active-color);
+    background-color: red !important;
+    border-color: red !important;
+}
