@@ -1,0 +1,19 @@
+.active>.page-link{
+    background-color:red !important; /* Set your desired background color */
+    color: white !important;
+    border: 2px solid red !important;
+   
+  }
+.page-link{
+  color:rgba(136, 136, 136, 1) !important;
+}
+/* .page-link:focus {
+  z-index: 3;
+  color: var(--bs-pagination-focus-color);
+  background-color: var(--bs-pagination-focus-bg);
+  outline: none;
+  box-shadow: none;
+} */
+.pagination .page-link:focus {
+  box-shadow: none !important;
+}

@@ -74,7 +74,7 @@ let {baseUrl} =useContext(storecontext)
         <div className='w-50 m-auto my-5 py-5'>
           <h2 className='my-2'>Sign in</h2>
           <form onSubmit={login.handleSubmit}>
-            <div className="position-relative">
+            <div >
               <input value={login.values.username} onChange={login.handleChange} name="username" type="text" className='form-control my-4 input-phone' placeholder='Enter email or user name' />
             </div>
             {login.errors.username && login.touched.username ? <div className="alert alert-danger">{login.errors.username}</div> : ''}

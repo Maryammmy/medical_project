@@ -68,10 +68,11 @@ color: rgba(136, 136, 136, 1);
     padding-right: 10px;
 }
 .images{
-   width: 70px;
-  height: 70px;  
+   width: 70px !important;
+  height: 70px !important;  
   border-radius: 50%;
   overflow: hidden;
+  padding: 0% !important;
  
 } 
 .images img{
@@ -85,9 +86,9 @@ color: rgba(136, 136, 136, 1);
 .namee{
     cursor: pointer;
 }
-.active>.page-link, .page-link.active {
+/* .active>.page-link, .page-link.active {
     z-index: 3;
     color: var(--bs-pagination-active-color);
     background-color: red !important;
     border-color: red !important;
-}
+} */

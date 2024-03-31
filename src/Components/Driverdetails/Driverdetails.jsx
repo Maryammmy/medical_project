@@ -9,6 +9,7 @@ export default function Driverdetails() {
   const [driverdetails, setDriverdetails] = useState({});
   const [loading, setLoading] = useState(true);
   const { selectedItemId,baseUrl } = useContext(storecontext);
+  const [apiError, setApiError] = useState(null);
 
   useEffect(() => {
     async function getDriverdetails() {

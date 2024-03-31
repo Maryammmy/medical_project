@@ -4,6 +4,8 @@ import Loading from '../Loading/Loading';
 import Driverdetails from '../Driverdetails/Driverdetails';
 import { storecontext } from '../Context/StorecontextProvider';
 import ReactPaginate from 'react-paginate';
+import './PendingDriver.css'
+import CartSkeleton from '../CartSkeleton/CartSkeleton';
 
 export default function PendingDrivers() {
   const [pendingdrivers,setpendingdrivers] =useState([])
@@ -11,26 +13,26 @@ export default function PendingDrivers() {
   const [loading,setloading] =useState(true)
   const token = localStorage.getItem('token');
   let {handleLinkClick,baseUrl} =useContext(storecontext)
-  async function getpendingdrivers(){
-    try  {
-       const data = await axios.get(`${baseUrl}/api/Admin/PendingDrivers/0`, {
-         headers: {
-           'Authorization': `Bearer ${token}`,
-         },
-       });
-       if(data.status==200){
-         console.log(data);
-         setloading(false)
-         setpendingdrivers(data.data.data)
-         console.log(data.data.data)
+  // async function getpendingdrivers(){
+  //   try  {
+  //      const data = await axios.get(`${baseUrl}/api/Admin/PendingDrivers/0`, {
+  //        headers: {
+  //          'Authorization': `Bearer ${token}`,
+  //        },
+  //      });
+  //      if(data.status==200){
+  //        console.log(data);
+  //        setloading(false)
+  //        setpendingdrivers(data.data.data)
+  //        console.log(data.data.data)
         
         
-       }
+  //      }
        
-     } catch (err) {
-       console.log(err);
-     }
-   }
+  //    } catch (err) {
+  //      console.log(err);
+  //    }
+  //  }
    function getPageCount(){
     axios.get(`${baseUrl}/api/Admin/Drivers/PendingPagesCount`,{
       headers:{
@@ -45,58 +47,45 @@ export default function PendingDrivers() {
     })
     .catch(err=>console.log(err))
       }
+      function getPage(currentPage){
+        setloading(true)
+        axios.get(`${baseUrl}/api/Admin/PendingDrivers/${currentPage}`,{
+          headers:{
+            'Authorization': `Bearer ${token}`,
+          }
+        })
+        .then((data)=>{
+          if(data.status==200){
+            console.log(data);
+            setloading(false)
+            setpendingdrivers(data.data.data)
+            console.log(data.data.data)
+          }
+        })
+        .catch((err)=>{
+          setloading(false)
+          console.log(err)
+        })
+          }
    useEffect(()=>{
-    getpendingdrivers()
+    // getpendingdrivers()
     getPageCount()
-
+    getPage()
    },[])
-   function getPage(currentPage){
-    setloading(true)
-    axios.get(`${baseUrl}/api/Admin/PendingDrivers/${currentPage}`,{
-      headers:{
-        'Authorization': `Bearer ${token}`,
-      }
-    })
-    .then((data)=>{
-      if(data.status==200){
-        console.log(data);
-        setloading(false)
-        setpendingdrivers(data.data.data)
-        console.log(data.data.data)
-      }
-    })
-    .catch(err=>console.log(err))
-      }
+
     
   // const handlePageClick = async (event) => {
   //  const currentPage = event.selected
   // const getPages = await getPage(currentPage)
   
   // };
-  const handlePageClick = async (event) => {
-    const currentPage = event.selected;
-    try {
-     
-     
-      const response = await axios.get(`${baseUrl}/api/Admin/PendingDrivers/${currentPage}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        }
-      });
-      
-      if (response.status === 200) {
-        
-        setpendingdrivers(response.data.data);
-      }
-    } catch (err) {
-      console.log(err);
-    }
+  const handlePageClick =  (event) => {
+    // const currentPage = event.selected;
+    getPage(event.selected)
   };
-  
-     if (loading)  return <Loading/>
   return (
     <>
-    <div className="container-fluid">
+    <>   <div className="container-fluid">
       < div className="d-flex justify-content-between py-3 widdth m-auto">
        <h2 className='h-color'> Pending Drivers</h2>
      <div  className=" position-relative">
@@ -121,34 +110,43 @@ export default function PendingDrivers() {
     <div className="col-md-2">Phone number</div>
     <div className="col-md-2">Active</div>
     <div className="col-md-2">status</div>
-    
   </div>
-  {pendingdrivers.map((item)=>{
-    return  <div className="row my-3 py-3 brdr" key={item._id}>
-     <div className="col-md-3 d-flex name-color align-items-center gap-3">
-      <div className='images'><img src={item.user.profileImage} alt=""/></div>
-<span  onClick={() => handleLinkClick (item._id)} data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" className='namee'>{item.user.firstName}</span>
-<div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel"  style={{width:'370px' ,textAlign:'left'}} >
-  <div className="offcanvas-header">
-    <h5 id="offcanvasRightLabel">Driverdetails</h5>
-    <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div className="offcanvas-body"  >
-  <Driverdetails />
-  </div>
-</div>
+  {loading ? (
+  <CartSkeleton cards={15} />
+) : (
+  pendingdrivers.map((item) => (
+    <div className="row my-3 py-3 brdr  justify-content-center" key={item._id}>
+     <div className='col-md-1'>
+        <div className='images'>
+        <img src={item.user.profileImage} alt=""  />
+        </div>
+        </div>
+        <div onClick={() => handleLinkClick(item._id)} data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" className="namee col-md-2 name-color d-flex align-items-center">{item.user.firstName}
+        <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style={{ width: '370px', textAlign: 'left' }}>
+          <div className="offcanvas-header">
+            <h5 id="offcanvasRightLabel">Driverdetails</h5>
+            <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div className="offcanvas-body">
+            <Driverdetails />
+          </div>
+        </div>
+        </div>
+       
+     
+      <div className="col-md-2  d-flex align-items-center ">{item.location.address.split(' ').slice(0, 3).join(' ')}</div>
+      <div className="col-md-2  d-flex align-items-center ">{item.user.phone}</div>
+      <div className="col-md-2  d-flex align-items-center">{item.visible === false ? <span><i className="fa-solid fa-circle off pe-2 "></i>Offline</span> : <span><span className="fa-solid fa-circle on pe-2"></span>Online</span>}</div>
+      <div className="col-md-2  d-flex align-items-center">{item.onTrip === false ? <span><i className="fa-solid fa-circle-check pe-2"></i>Available</span> : <span><i className="fa-solid fa-car-side pe-2"></i>On Trip</span>}</div>
     </div>
-    <div className="col-md-2">{item.location.address.split(' ').slice(0,3).join(' ')}</div>
-    <div className="col-md-2">{item.user.phone}</div>
-    <div className="col-md-2">{item.visible==false? <span><i className="fa-solid fa-circle off pe-2 "></i>Offline</span> :<span><span className="fa-solid fa-circle on pe-2"></span>Online</span>}</div>
-    <div className="col-md-2">{item.onTrip==false ?<span><i className="fa-solid fa-circle-check pe-2"></i>Avaliable</span> :<span><i className="fa-solid fa-car-side pe-2"></i>On Trip</span>}</div>
-   
-  </div>
-  })}
+  ))
+)}
+
 
  
 </div>
-      </div>
+      </div></>
+ 
       <ReactPaginate
         breakLabel="..."
         nextLabel="next"
@@ -166,7 +164,8 @@ export default function PendingDrivers() {
         nextLinkClassName={'page-link'}
         breakClassName={'page-item'}
         breakLinkClassName={'page-link'}
-        activeClassName={'active'}
+        activeClassName='active'
+       
        
       />
       </>

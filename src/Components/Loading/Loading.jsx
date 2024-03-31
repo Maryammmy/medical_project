@@ -3,7 +3,7 @@ import './Loading.css'
 
 export default function Loading() {
   return (
-    <div className=' my-5  py-5 text-center'>
+    <div className='d-flex justify-content-center align-items-center text-center vh-100'>
      <div><span className="loader"></span></div>
     </div>
   )

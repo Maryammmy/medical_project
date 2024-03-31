@@ -14,7 +14,14 @@ import ProtectedRoutes from "./Components/ProtectedRoutes/ProtectedRoutes";
 import Authlayout from "./Components/Authlayout/Authlayout";
 import Storecontextprovider from "./Components/Context/StorecontextProvider";
 import Notfound from "./Components/Notfound/Notfound";
-
+import AddDriverlayout from "./Components/AddDriverlayout/AddDriverlayout";
+import PersonalData from "./Components/PersonalData/PersonalData";
+import AddCar from "./Components/AddCar/AddCar";
+import AddLicenses from "./Components/AddLicenses/AddLicenses";
+import ImageUpload from "./Components/Uploadimages/ImageUpload";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 export default function App() {
   let routes = createBrowserRouter([
     {
@@ -26,7 +33,7 @@ export default function App() {
           index: true,
           element: (
             <ProtectedRoutes>
-              <Dashboard />
+              <ImageUpload />
             </ProtectedRoutes>
           ),
         },
@@ -86,7 +93,7 @@ export default function App() {
             </ProtectedRoutes>
           ),
         },
-        { path: "*", element: <Notfound/> },
+        { path: "*", element: <Notfound /> },
       ],
     },
     {
@@ -97,10 +104,25 @@ export default function App() {
         { path: "login", element: <Login /> },
       ],
     },
+    {
+      path: "/adddriver",
+      element: <AddDriverlayout />,
+      children: [
+        { path: "/adddriver", element: <PersonalData /> },
+        { path: "personaldata", element: <PersonalData /> },
+        { path: "addcar/:id", element: <AddCar /> },
+        { path: "addlicenses/:id", element: <AddLicenses /> },
+      ],
+    },
   ]);
   return (
-    <Storecontextprovider>
-      <RouterProvider router={routes} />
-    </Storecontextprovider>
+    <>
+      <SkeletonTheme baseColor="#8888884D"  highlightColor="red">
+        <Storecontextprovider>
+          <RouterProvider router={routes} />
+        </Storecontextprovider>
+      </SkeletonTheme>
+      <ToastContainer theme="colored" autoClose={700} draggable={true} />
+    </>
   );
 }

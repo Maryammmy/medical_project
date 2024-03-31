@@ -4,20 +4,21 @@
        text-decoration: none;
        color:white !important;
 }
-.menu li{
-    padding: 15px;
+.menu{
+        list-style: none;    
 }
 .link.active{
     background-color:rgba(255, 0, 0, 1);
     padding: 6px 10px;
     border-radius: 8px;
-}
-.sidebar-list {
-    background-color: red; /* Change the background color to your desired color */
   }
-nav{
-    min-height: 100vh;
+.menu li{
+    padding: 15px;
 }
+.navv{
+    height: 100vh;
+}
+  
 
 
 
