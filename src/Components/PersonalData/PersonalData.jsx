@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-import React, { useState,useContext } from 'react'
+import React, { useState,useContext,useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import * as yup from 'yup';
 import { useFormik } from 'formik';
@@ -8,9 +8,10 @@ import { storecontext } from '../Context/StorecontextProvider';
 import upload from '../../assets/images/user-svgrepo-com 1(1).svg'
 import nationalFront from '../../assets/images/Group.svg'
 import nationalBack from '../../assets/images/card-emulator-pro-svgrepo-com 1.svg'
-import { LoadScript, GoogleMap, Autocomplete, InfoWindow, Marker }from '@react-google-maps/api';
+import { LoadScript, GoogleMap, Autocomplete,StandaloneSearchBox, InfoWindow, Marker }from '@react-google-maps/api';
 
-  const libraries = ["places"];
+const YOUR_API_KEY = 'AIzaSyDpRNzE-9ne0Gwcs_56dPa9E9aTCLsiECA';
+const libraries = ["places"];
 export default function PersonalData() {
   const { baseUrl } = useContext(storecontext);
   const token = localStorage.getItem('token');
@@ -27,8 +28,7 @@ export default function PersonalData() {
   const searchBoxRef = React.useRef(null);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [mapVisible, setMapVisible] = useState(false);
-
-
+  const [isLoaded, setIsLoaded] = useState(false);
   let navigate =useNavigate()
 
   // Define the validation schema
@@ -196,13 +196,21 @@ export default function PersonalData() {
   const handlePlaceSelect = (place) => {
     setSelectedPlace(place);
     setMapVisible(true);
+  
     // Set latitude and longitude in formik values
     formik.setFieldValue('latitude', place.geometry.location.lat());
     formik.setFieldValue('longitude', place.geometry.location.lng());
     // Set address in formik values
     formik.setFieldValue('address', place.formatted_address);
   };
+  useEffect(() => {
+    setIsLoaded(true); // Set isLoaded to true when component mounts
+  }, []);
 
+ 
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -226,16 +234,50 @@ export default function PersonalData() {
         {formik.errors.ssn && formik.touched.ssn ? <div className="alert alert-danger w-75 mx-3">{formik.errors.ssn}</div> : ''}
         <input type="text"className='form-control  my-4  w-75 mx-3 py-2'name="medicalInsurance"value={formik.values.medicalInsurance}onChange={formik.handleChange} placeholder="Medical Insurance"  onBlur={formik.handleBlur}/>
         {formik.errors.medicalInsurance && formik.touched.medicalInsurance ? <div className="alert alert-danger w-75 mx-3">{formik.errors.medicalInsurance}</div> : ''}
-
-
-
-
-<div>
-
-
+       
       
-     
-    </div>
+        <LoadScript googleMapsApiKey={YOUR_API_KEY} libraries={libraries}>
+          <Autocomplete
+            onLoad={(autocomplete) => {
+              setIsLoaded(true); // Set isLoaded to true when Autocomplete is loaded
+              searchBoxRef.current = autocomplete;
+            }}
+            onPlaceChanged={() => {
+              const place = searchBoxRef.current.getPlace();
+              if (place && place.geometry) {
+                handlePlaceSelect(place);
+              }
+            }}
+          >
+            <input
+              type="text"
+              className='form-control my-4 w-75 mx-3 py-2'
+              placeholder="Address"
+              name='address'
+            
+            />
+          </Autocomplete>
+          {formik.errors.address && formik.touched.address ? (
+            <div className="alert alert-danger w-75 mx-3">{formik.errors.address}</div>
+          ) : null}
+          {selectedPlace && (
+            <GoogleMap
+              mapContainerStyle={{ width: '100%', height: '200px'}}
+              center={{ lat: selectedPlace.geometry.location.lat(), lng: selectedPlace.geometry.location.lng() }}
+              zoom={10} >
+              {/* Your Google Map components */}
+            </GoogleMap>
+          )}
+          {!selectedPlace && (
+            <GoogleMap
+              mapContainerStyle={{ display:'none'}}
+              center={{ lat: mapCenter.lat, lng: mapCenter.lng }}
+              zoom={mapZoom}
+            >
+            </GoogleMap>
+          )}
+        </LoadScript>
+      
 
 
        
