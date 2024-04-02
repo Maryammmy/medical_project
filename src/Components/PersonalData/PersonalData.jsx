@@ -123,9 +123,9 @@ import { storecontext } from '../Context/StorecontextProvider';
 import upload from '../../assets/images/user-svgrepo-com 1(1).svg'
 import nationalFront from '../../assets/images/Group.svg'
 import nationalBack from '../../assets/images/card-emulator-pro-svgrepo-com 1.svg'
-import { GoogleMap, LoadScript, StandaloneSearchBox } from '@react-google-maps/api';
+import { LoadScript, GoogleMap, Autocomplete, InfoWindow, Marker }from '@react-google-maps/api';
 
-
+  const libraries = ["places"];
 export default function PersonalData() {
   const { baseUrl } = useContext(storecontext);
   const token = localStorage.getItem('token');
@@ -137,10 +137,12 @@ export default function PersonalData() {
   const [profileError, setProfileError] = useState('');
   const [nationalFrontError, setNationalFrontError] = useState('');
   const [nationalBackError, setNationalBackError] = useState('');
-  // const [mapCenter, setMapCenter] = useState({ lat: 12.2121, lng: 32.322 });
-  // const [mapZoom, setMapZoom] = useState(10);
-  // const [markerPosition, setMarkerPosition] = useState(null);
-  // const [searchAddress, setSearchAddress] = useState('');
+  const [mapCenter, setMapCenter] = useState({ lat: 12.2121, lng: 32.322 });
+  const [mapZoom, setMapZoom] = useState(10);
+  const searchBoxRef = React.useRef(null);
+  const [selectedPlace, setSelectedPlace] = useState(null);
+  const [mapVisible, setMapVisible] = useState(false);
+
 
   let navigate =useNavigate()
 
@@ -226,9 +228,9 @@ export default function PersonalData() {
       ssn: "",
       medicalInsurance: "",
       password: "",
-      latitude: "12.2121",
-      longitude: "32.322",
-      address: "USA",
+      latitude: "",
+      longitude: "",
+      address: "",
       profile: null,
       nationalFront: null,
       nationalBack: null
@@ -305,29 +307,17 @@ export default function PersonalData() {
     }
   };
   
-  // const handleMapClick = (e) => {
-  //   const clickedPosition = { lat: e.latLng.lat(), lng: e.latLng.lng() };
-  //   setMarkerPosition(clickedPosition);
-  
-  //   // Update form values with the clicked position
-  //   formik.setFieldValue('latitude', clickedPosition.lat);
-  //   formik.setFieldValue('longitude', clickedPosition.lng);
-  // };
-  
-  // // Event handler for handling Places Autocomplete search
-  // const handlePlacesChanged = () => {
-  //   const places = searchBoxRef.getPlaces();
-  //   if (places.length > 0) {
-  //     const place = places[0];
-  //     setMapCenter({ lat: place.geometry.location.lat(), lng: place.geometry.location.lng() });
-  //     setSearchAddress(place.formatted_address);
-  
-  //     // Update form values with the selected place
-  //     formik.setFieldValue('latitude', place.geometry.location.lat());
-  //     formik.setFieldValue('longitude', place.geometry.location.lng());
-  //     formik.setFieldValue('address', place.formatted_address);
-  //   }
-  // };
+ 
+  const handlePlaceSelect = (place) => {
+    setSelectedPlace(place);
+    setMapVisible(true);
+    // Set latitude and longitude in formik values
+    formik.setFieldValue('latitude', place.geometry.location.lat());
+    formik.setFieldValue('longitude', place.geometry.location.lng());
+    // Set address in formik values
+    formik.setFieldValue('address', place.formatted_address);
+  };
+
 
   return (
     <>
@@ -335,23 +325,85 @@ export default function PersonalData() {
       <form onSubmit={formik.handleSubmit}>
      <div className='d-flex'>
       <div className='w-50'>
-        <input type="text" className='form-control  my-4  py-2 w-75 mx-3' name="firstName" value={formik.values.firstName} onChange={formik.handleChange} placeholder='Enter YourFirst Name'  onBlur={formik.handleBlur} />
+        <input type="text" className='form-control  my-4  py-2 w-75 mx-3' name="firstName" value={formik.values.firstName} onChange={formik.handleChange} placeholder='First Name'  onBlur={formik.handleBlur} />
         {formik.errors.firstName && formik.touched.firstName ? <div className="alert alert-danger w-75 mx-3">{formik.errors.firstName}</div> : ''}
-        <input type="text" className='form-control  my-4  w-75 mx-3 py-2' name="lastName" value={formik.values.lastName} onChange={formik.handleChange} placeholder='Ener Your Last Name'   onBlur={formik.handleBlur} />
+        <input type="text" className='form-control  my-4  w-75 mx-3 py-2' name="lastName" value={formik.values.lastName} onChange={formik.handleChange} placeholder='Last Name'   onBlur={formik.handleBlur} />
         {formik.errors.lastName && formik.touched.lastName ? <div className="alert alert-danger w-75 mx-3">{formik.errors.lastName}</div> : ''}
-        <input type="email" className='form-control  my-4  w-75 mx-3 py-2' name="email" value={formik.values.email} onChange={formik.handleChange} placeholder='Enter Your Email'   onBlur={formik.handleBlur} />
+        <input type="email" className='form-control  my-4  w-75 mx-3 py-2' name="email" value={formik.values.email} onChange={formik.handleChange} placeholder='Email'   onBlur={formik.handleBlur} />
         {formik.errors.email && formik.touched.email ? <div className="alert alert-danger w-75 mx-3">{formik.errors.email}</div> : ''}
-        <input type="password"className='form-control  my-4  w-75 mx-3 py-2'name="password"value={formik.values.password}onChange={formik.handleChange}placeholder="Enter Password"   onBlur={formik.handleBlur}/>
+        <input type="password"className='form-control  my-4  w-75 mx-3 py-2'name="password"value={formik.values.password}onChange={formik.handleChange}placeholder="Password"   onBlur={formik.handleBlur}/>
         {formik.errors.password && formik.touched.password ? <div className="alert alert-danger w-75 mx-3">{formik.errors.password}</div> : ''}
-        <input type="text" className='form-control  my-4  w-75 mx-3 py-2' name="phone" value={formik.values.phone} onChange={formik.handleChange} placeholder='Enter Your Phone '   onBlur={formik.handleBlur} />
+        <input type="text" className='form-control  my-4  w-75 mx-3 py-2' name="phone" value={formik.values.phone} onChange={formik.handleChange} placeholder='Phone '   onBlur={formik.handleBlur} />
         {formik.errors.phone && formik.touched.phone ? <div className="alert alert-danger w-75 mx-3">{formik.errors.phone}</div> : ''}
         <input type="date"className='form-control my-4  w-75 mx-3 py-2 'name="birthDate" value={formik.values.birthDate}onChange={formik.handleChange}   onBlur={formik.handleBlur}/>
         {formik.errors.birthDate && formik.touched.birthDate ? <div className="alert alert-danger w-75 mx-3">{formik.errors.birthDate}</div> : ''}
-        <input type="text"className='form-control  my-4  w-75 mx-3 py-2' name="ssn"value={formik.values.ssn} onChange={formik.handleChange} placeholder="Enter SSN"   onBlur={formik.handleBlur}/>
+        <input type="text"className='form-control  my-4  w-75 mx-3 py-2' name="ssn"value={formik.values.ssn} onChange={formik.handleChange} placeholder="SSN"   onBlur={formik.handleBlur}/>
         {formik.errors.ssn && formik.touched.ssn ? <div className="alert alert-danger w-75 mx-3">{formik.errors.ssn}</div> : ''}
-        <input type="text"className='form-control  my-4  w-75 mx-3 py-2'name="medicalInsurance"value={formik.values.medicalInsurance}onChange={formik.handleChange} placeholder="Enter Medical Insurance"  onBlur={formik.handleBlur}/>
+        <input type="text"className='form-control  my-4  w-75 mx-3 py-2'name="medicalInsurance"value={formik.values.medicalInsurance}onChange={formik.handleChange} placeholder="Medical Insurance"  onBlur={formik.handleBlur}/>
         {formik.errors.medicalInsurance && formik.touched.medicalInsurance ? <div className="alert alert-danger w-75 mx-3">{formik.errors.medicalInsurance}</div> : ''}
+
+
+
+
+<div>
+
+
+      
+        <LoadScript googleMapsApiKey="AIzaSyDpRNzE-9ne0Gwcs_56dPa9E9aTCLsiECA"  libraries={libraries}
+>
+
+
+
+          <Autocomplete
+        onLoad={(autocomplete) => (searchBoxRef.current = autocomplete)}
+        onPlaceChanged={() => {
+          const place = searchBoxRef.current.getPlace();
+          if (place && place.geometry) {
+            handlePlaceSelect(place);
+          }
+        }}
+      >
+        <input
+          type="text"
+          className='form-control my-4 w-75 mx-3 py-2'
+          placeholder="Address"
+          name='address'
+          onBlur={formik.handleBlur}
+        />
+      </Autocomplete>
+      {formik.errors.address && formik.touched.address ? (
+        <div className="alert alert-danger w-75 mx-3">{formik.errors.address}</div>
+      ) : null}
+      {selectedPlace && (
+    <GoogleMap
+      mapContainerStyle={{ width: '100%', height: '200px'}}
+      center={{ lat: selectedPlace.geometry.location.lat(), lng: selectedPlace.geometry.location.lng() }}
+      zoom={10} >
+  {/* <Marker position={{ lat: selectedPlace.geometry.location.lat(), lng: selectedPlace.geometry.location.lng() }}>
+
+
+        <InfoWindow position={{ lat: selectedPlace.geometry.location.lat(), lng: selectedPlace.geometry.location.lng() }}>
+          <div>
+            <h3>{selectedPlace.name}</h3>
+            <p>{selectedPlace.formatted_address}</p>
+          </div>
+        </InfoWindow>
+      </Marker> */}
+    </GoogleMap>
+  )}
+  {!selectedPlace && (
+    <GoogleMap
+      mapContainerStyle={{ display:'none'}}
+      center={{ lat: mapCenter.lat, lng: mapCenter.lng }}
+      zoom={mapZoom}
+    >
+    </GoogleMap>
+  )}
+        </LoadScript>
         
+    </div>
+
+
        
         </div>
     <div className=' w-50'>
@@ -443,6 +495,8 @@ export default function PersonalData() {
         <button type='submit' className='btn-bg btn ms-auto d-block w-25 my-3 mx-3 fw-bold'   disabled={!formik.isValid && formik.dirty}>{btnloading ? <i className="fa-solid fa-spinner"></i> : 'Next'}</button>
 
       </form>
+
+
     </>
   )
 }
