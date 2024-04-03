@@ -8,7 +8,7 @@ import { storecontext } from '../Context/StorecontextProvider';
 import upload from '../../assets/images/user-svgrepo-com 1(1).svg'
 import nationalFront from '../../assets/images/Group.svg'
 import nationalBack from '../../assets/images/card-emulator-pro-svgrepo-com 1.svg'
-import { LoadScript, GoogleMap, Autocomplete,StandaloneSearchBox, InfoWindow, Marker }from '@react-google-maps/api';
+import { LoadScript, GoogleMap, Autocomplete,StandaloneSearchBox, InfoWindow, Marker, LoadScriptNext }from '@react-google-maps/api';
 
 const YOUR_API_KEY = 'AIzaSyDpRNzE-9ne0Gwcs_56dPa9E9aTCLsiECA';
 const libraries = ["places"];
@@ -203,14 +203,6 @@ export default function PersonalData() {
     // Set address in formik values
     formik.setFieldValue('address', place.formatted_address);
   };
-  useEffect(() => {
-    setIsLoaded(true); // Set isLoaded to true when component mounts
-  }, []);
-
- 
-  if (!isLoaded) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <>
@@ -236,10 +228,10 @@ export default function PersonalData() {
         {formik.errors.medicalInsurance && formik.touched.medicalInsurance ? <div className="alert alert-danger w-75 mx-3">{formik.errors.medicalInsurance}</div> : ''}
        
       
-        <LoadScript googleMapsApiKey={YOUR_API_KEY} libraries={libraries}>
+        <LoadScript googleMapsApiKey={YOUR_API_KEY} libraries={libraries} >
           <Autocomplete
             onLoad={(autocomplete) => {
-              setIsLoaded(true); // Set isLoaded to true when Autocomplete is loaded
+             
               searchBoxRef.current = autocomplete;
             }}
             onPlaceChanged={() => {
@@ -262,7 +254,7 @@ export default function PersonalData() {
           ) : null}
           {selectedPlace && (
             <GoogleMap
-              mapContainerStyle={{ width: '100%', height: '200px'}}
+              mapContainerStyle={{ width: '75%', height: '200px',marginLeft:'20px'}}
               center={{ lat: selectedPlace.geometry.location.lat(), lng: selectedPlace.geometry.location.lng() }}
               zoom={10} >
               {/* Your Google Map components */}

@@ -22,6 +22,7 @@ import ImageUpload from "./Components/Uploadimages/ImageUpload";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+
 export default function App() {
   let routes = createBrowserRouter([
     {
@@ -117,7 +118,7 @@ export default function App() {
   ]);
   return (
     <>
-      <SkeletonTheme baseColor="#8888884D"  highlightColor="red">
+      <SkeletonTheme baseColor="#8888884D" highlightColor="red">
         <Storecontextprovider>
           <RouterProvider router={routes} />
         </Storecontextprovider>
