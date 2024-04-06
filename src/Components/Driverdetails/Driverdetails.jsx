@@ -46,10 +46,10 @@ export default function Driverdetails() {
     <div className='d-flex '>
       <span className='images'><img src={driverdetails.user.profileImage} alt="" /></span>
       <span className='ps-5 pt-3'>{driverdetails.user.firstName}</span>
+      <span className='pt-3 ps-2'>{driverdetails.user.lastName}</span>
     </div>
     <div>
-    <p className='pt-4 mb-0 red-color'>Personal</p>
-    <p className='mb-0 pb-2 red-color' >Information</p>
+    <p className='pt-4  red-color'>Personal Information</p>
     </div>
     <div>
       <div className='d-flex justify-content-between'>
@@ -66,8 +66,8 @@ export default function Driverdetails() {
        </div>
     </div>
     <div>
-    <p className='pt-4 mb-0 red-color'>Car</p>
-    <p className='mb-0 pb-2 red-color' >Information</p>
+    <p className='pt-4  red-color'>Car Information</p>
+    
     </div>
     <div>
       <div className='d-flex justify-content-between'>
@@ -85,13 +85,17 @@ export default function Driverdetails() {
     </div>
     <div>
       <p className='mb-0 pt-4 red-color'>National Id</p>
-      <span><img src={driverdetails?.nationalCard?.front} alt="" className='w-50' /></span> 
-      <span><img src={driverdetails?.nationalCard?.back} alt="" className='w-50' /></span> 
+     <div className='d-flex  justify-content-around gap-3 mt-2'>
+     <div className='imageee'><img src={driverdetails?.nationalCard?.front} alt=""  /></div> 
+      <div className='imageee'><img src={driverdetails?.nationalCard?.back} alt="" /></div> 
+     </div>
     </div>
     <div>
       <p className='mb-0 pt-4 red-color'>car License</p>
-      <span><img src={driverdetails?.car?.registration} alt="" className='w-50' /></span> 
-      <span><img src={driverdetails?.car?.insurance} alt="" className='w-50' /></span> 
+      <div className='d-flex justify-content-around  gap-3 mt-2'>
+      <div className='imageee'><img src={driverdetails?.car?.registration} alt=""  /></div> 
+      <div className='imageee'><img src={driverdetails?.car?.insurance} alt="" /></div>
+      </div> 
     </div>
     </>
    

@@ -22,7 +22,7 @@ let {baseUrl} =useContext(storecontext)
   }
 
 
-  function getdatafromapi(values) {
+  function sendDataToApi(values) {
     setbtnloading(true)
     axios.post(`${baseUrl}/api/Admin/Login`,values)
       .then((response) => {
@@ -59,7 +59,7 @@ let {baseUrl} =useContext(storecontext)
     },
  
     validationSchema: validation,
-    onSubmit: (values) => getdatafromapi(values)
+    onSubmit: (values) => sendDataToApi(values)
    
   });
 

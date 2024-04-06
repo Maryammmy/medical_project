@@ -22,6 +22,9 @@ import ImageUpload from "./Components/Uploadimages/ImageUpload";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import TripDetails from "./Components/TripDetails/TripDetails";
+import AssignDriver from "./Components/AssignDriver/AssignDriver";
+import AddTriplayout from "./Components/AddTriplayout/AddTriplayout";
 
 export default function App() {
   let routes = createBrowserRouter([
@@ -115,10 +118,19 @@ export default function App() {
         { path: "addlicenses/:id", element: <AddLicenses /> },
       ],
     },
+    {
+      path: "/addtrip",
+      element: <AddTriplayout />,
+      children: [
+        { path: "/addtrip", element: <TripDetails /> },
+        { path: "tripdetails", element: <TripDetails /> },
+        { path: "assigndriver/:id", element: <AssignDriver /> },
+      ],
+    },
   ]);
   return (
     <>
-      <SkeletonTheme baseColor="#8888884D" highlightColor="red">
+      <SkeletonTheme baseColor="#88888833" highlightColor="red">
         <Storecontextprovider>
           <RouterProvider router={routes} />
         </Storecontextprovider>

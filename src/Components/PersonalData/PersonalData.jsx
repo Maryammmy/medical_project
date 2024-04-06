@@ -30,6 +30,8 @@ export default function PersonalData() {
   const [mapVisible, setMapVisible] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   let navigate =useNavigate()
+  
+
 
   // Define the validation schema
   const validationSchema = yup.object().shape({
@@ -70,7 +72,7 @@ export default function PersonalData() {
   });
 
   // Function to handle form submission and API call
-  const getdatafromapi = async (values) => {
+  const sendDataToApi = async (values) => {
    
     setbtnloading(true) // Set loading state to true
 
@@ -122,7 +124,7 @@ export default function PersonalData() {
     },
     
     validationSchema: validationSchema,
-    onSubmit: (values) => getdatafromapi(values)
+    onSubmit: (values) => sendDataToApi(values)
  
   });
   // const handleProfileImageChange = (event) => {
@@ -238,6 +240,7 @@ export default function PersonalData() {
               const place = searchBoxRef.current.getPlace();
               if (place && place.geometry) {
                 handlePlaceSelect(place);
+                
               }
             }}
           >
@@ -268,6 +271,7 @@ export default function PersonalData() {
             >
             </GoogleMap>
           )}
+       
         </LoadScript>
       
 

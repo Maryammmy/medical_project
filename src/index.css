@@ -110,13 +110,13 @@ position: relative;
 
 @keyframes pulse {
   0% {
-    opacity: 0.3;
+    opacity: 0.1;
   }
   50% {
     opacity: 1;
   }
   100% {
-    opacity: 0.5;
+    opacity: 0.2;
   }
 }
 

@@ -14,7 +14,7 @@ export default function Drivers() {
   const [drivers,setdrivers] =useState([])
   const [pagecount,setpagecount] =useState(0)
   const [loading,setloading] =useState(true)
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token')
   let {handleLinkClick,baseUrl} =useContext(storecontext)
   // async function getdrivers(){
   //  try  {
@@ -35,16 +35,21 @@ export default function Drivers() {
   //   }
   // }
   async function getPageCount() {
+    setloading(true)
     try {
       const response = await axios.get(`${baseUrl}/api/Admin/Drivers/PagesCount`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         }
       });
-      setpagecount(Math.ceil(response.data.data));
+      if(response.status==200){
+        setpagecount(Math.ceil(response.data.data));
+     
+      }
       console.log(response.data.data)
     } catch (error) {
       console.log(error);
+    
       
     }
   }
@@ -94,7 +99,7 @@ export default function Drivers() {
     <div className="container-fluid">
       < div className="d-flex justify-content-between py-3 widdth m-auto">
        <h2 className='h-color'>Drivers</h2>
-     <div  className=" position-relative">
+     <div  className=" position-relative mt-2" >
      <i className="fa-regular fa-bell fs-4 i-color"></i>
   <span className="position-absolute top-0 start-100 translate-middle  py-1 px-1 badge badge-color rounded-circle ">
     2
@@ -107,16 +112,15 @@ export default function Drivers() {
       <div className="container-fluid bg-light">
         <div className='d-flex justify-content-between py-4 widdth m-auto'>
           <input type="search" className='form-control w-25' placeholder='search'  />
-          <Link to='/adddriver/personaldata' className='btn btn-bg' > + Add Drivers</Link>
+          <Link to='/adddriver/personaldata' className='btn btn-bg' > + Add Driver</Link>
         </div>
-        <div className="container-fluid py-3 px-5 text-color text-center rounded-3">
+        <div className="container-fluid bg-white py-3 px-5 text-color text-center rounded-3">
   <div className="row row-bg py-3 rounded-3">  
     <div className="col-md-3">Name</div>
     <div className="col-md-2">Address</div>
     <div className="col-md-2">Phone number</div>
     <div className="col-md-2">Active</div>
     <div className="col-md-2">status</div>
-
   </div>
   {loading ? (
   <CartSkeleton cards={6} />
@@ -131,7 +135,7 @@ export default function Drivers() {
         <div onClick={() => handleLinkClick(item._id)} data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" className="namee col-md-2 name-color d-flex align-items-center">{item.user.firstName}
         <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style={{ width: '370px', textAlign: 'left' }}>
           <div className="offcanvas-header">
-            <h5 id="offcanvasRightLabel">Driverdetails</h5>
+            <h5 id="offcanvasRightLabel">Driver Details</h5>
             <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div className="offcanvas-body">
@@ -146,11 +150,8 @@ export default function Drivers() {
     </div>
   ))
 )}
-
-
- 
 </div>
-      </div>
+</div>
       </>
    
       <ReactPaginate
