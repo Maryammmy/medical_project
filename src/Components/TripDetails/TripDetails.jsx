@@ -26,6 +26,11 @@ export default function TripDetails() {
   const searchBox = useRef(null);
   const [mapCenter, setMapCenter] = useState({ lat: 12.2121, lng: 32.322 });
   const [mapZoom, setMapZoom] = useState(10);
+  const today = new Date(); // Get today's date
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Add 1 because getMonth() returns zero-based index
+  const day = String(today.getDate()).padStart(2, '0');
+  const formattedDate = `${year}-${month}-${day}`;
 
   
 
@@ -101,7 +106,7 @@ export default function TripDetails() {
       birthDate: '',
       phone: '',
       type: '',
-      date: '', // empty initially
+      date: formattedDate, // empty initially
       time: '', // empty initially
       cost: '',
       number: '', // Not Required
@@ -149,9 +154,6 @@ export default function TripDetails() {
     }
   };
   
-
-
-
   function getTodayDate() {
     const today = new Date();
     const year = today.getFullYear();
@@ -159,6 +161,11 @@ export default function TripDetails() {
     const day = String(today.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
+  const handleDateChange = (event) => {
+    const selectedDate = event.target.value;
+    setSelectedDate(selectedDate);
+  };
+
 
   
   return (
@@ -290,7 +297,7 @@ export default function TripDetails() {
         <input type="number" className='form-control   mt-2  mb-4  py-2 w-75 mx-3' name="cost" value={trip.values.cost} onChange={trip.handleChange} placeholder='Cost'  onBlur={trip.handleBlur} />
         {trip.errors.cost && trip.touched.cost ? <div className="alert alert-danger w-75 mx-3">{trip.errors.cost}</div> : ''}
         <label className=' mx-3'>Date</label>
-        <input type="date" className='form-control   mt-2  mb-4  py-2 w-75 mx-3' name="date"    value={selectedDate}
+        <input type="date" className='form-control  mt-2  mb-4  py-2 w-75 mx-3' name="date"    value={trip.values.date}
             onChange={trip.handleChange}   onBlur={trip.handleBlur} />
         {trip.errors.date && trip.touched.date ? <div className="alert alert-danger w-75 mx-3">{trip.errors.date}</div> : ''}
         <label className=' mx-3'>Type</label>
