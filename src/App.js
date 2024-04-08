@@ -130,7 +130,7 @@ export default function App() {
   ]);
   return (
     <>
-      <SkeletonTheme baseColor="#88888833" highlightColor="red">
+      <SkeletonTheme baseColor="#88888833" >
         <Storecontextprovider>
           <RouterProvider router={routes} />
         </Storecontextprovider>

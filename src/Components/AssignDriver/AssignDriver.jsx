@@ -105,7 +105,7 @@ let obj ={
                   </div>
                 </div>
                 <div className="col-md-2 d-flex align-items-center ">{item.driver.user.firstName}</div>
-                <div className="col-md-2 d-flex align-items-center">{item.driver.user.phone}</div>
+                <div className="col-md-2 d-flex align-items-center  justify-content-center">{item.driver.user.phone}</div>
                <div className='col-md-2 d-flex align-items-center'>
                 {item.driver.visible === false ? <span><i className="fa-solid fa-circle off pe-2"></i>Offline</span> : <span><span className="fa-solid fa-circle on pe-2"></span>Online</span>}
                 </div> 
