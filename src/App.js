@@ -25,6 +25,11 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import TripDetails from "./Components/TripDetails/TripDetails";
 import AssignDriver from "./Components/AssignDriver/AssignDriver";
 import AddTriplayout from "./Components/AddTriplayout/AddTriplayout";
+import UpDateTriplayout from "./Components/UpDateTriplayout/UpDateTriplayout";
+import UpDateTrip from "./Components/UpDateTrip/UpDateTrip";
+import { Update } from "@mui/icons-material";
+import UpdateDriverlayout from "./Components/UpDateDriverlayout/UpDateDriverlayout";
+import UpdatePersonalData from "./Components/UpdatePersonalData/UpdatePersonalData";
 
 export default function App() {
   let routes = createBrowserRouter([
@@ -98,8 +103,11 @@ export default function App() {
           ),
         },
         { path: "*", element: <Notfound /> },
+      
+        
       ],
     },
+    
     {
       path: "/",
       element: <Authlayout />,
@@ -119,6 +127,16 @@ export default function App() {
       ],
     },
     {
+      path: "/updatedriver",
+      element: <AddDriverlayout />,
+      children: [
+        { path: "/updatedriver", element: <PersonalData /> },
+        { path: "personaldata", element: <PersonalData /> },
+        { path: "addcar/:id", element: <AddCar /> },
+        { path: "addlicenses/:id", element: <AddLicenses /> },
+      ],
+    },
+    {
       path: "/addtrip",
       element: <AddTriplayout />,
       children: [
@@ -127,10 +145,26 @@ export default function App() {
         { path: "assigndriver/:id", element: <AssignDriver /> },
       ],
     },
+    {
+      path: "/update",
+      element:<UpDateTriplayout/>,
+      children: [
+        { path: "/update", element: <UpDateTrip/> },
+        { path: "updatetrip/:id", element: <UpDateTrip/> },
+      ],
+    },
+    {
+      path: "/updatedriver",
+      element:<UpdateDriverlayout/>,
+      children: [
+        { path: "/updatedriver", element: <UpdatePersonalData/> },
+        { path: "updatepersonaldata/:id", element:<UpdatePersonalData/>  },
+      ],
+    },
   ]);
   return (
     <>
-      <SkeletonTheme baseColor="#88888833" >
+      <SkeletonTheme baseColor="#88888833">
         <Storecontextprovider>
           <RouterProvider router={routes} />
         </Storecontextprovider>

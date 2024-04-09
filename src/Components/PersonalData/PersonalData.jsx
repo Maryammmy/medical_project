@@ -367,8 +367,6 @@ export default function PersonalData() {
         <button type='submit' className='btn-bg btn ms-auto d-block w-25 my-3 mx-3 fw-bold'   disabled={!formik.isValid && formik.dirty}>{btnloading ? <i className="fa-solid fa-spinner"></i> : 'Next'}</button>
 
       </form>
-
-
     </>
   )
 }

@@ -10,7 +10,7 @@ export default function Trips() {
   const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem('token');
-  let { baseUrl } = useContext(storecontext);
+  let { baseUrl,setSelected} = useContext(storecontext);
   const [pagecount, setPageCount] = useState(0);
   const [selectedDate, setSelectedDate] = useState(getTodayDate());
   const [selectedType, setSelectedType] = useState(null)
@@ -26,6 +26,7 @@ export default function Trips() {
       if (data.status === 200) {
         setTrips(data.data.data);
         setLoading(false);
+        console.log(data)
       }
     } catch (err) {
       console.log(err);
@@ -70,10 +71,14 @@ export default function Trips() {
     const day = String(today.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
+  const handleClickTrip = (item)=>{
+    setSelected(item)
+  }
 
 
   return (
     <>
+
       <div className="container-fluid">
         <div className="d-flex justify-content-between py-3 widdth m-auto">
           <h2 className="h-color">Trips</h2>
@@ -114,7 +119,7 @@ export default function Trips() {
             <div className="col-md-1">Actions</div>
           </div>
           {loading ? (
-            <TripSkeleton cards={2} />
+            <TripSkeleton cards={3} />
           ) : (
             trips.map((item) => (
               <div className="row my-3 py-3 brdr justify-content-around" key={item._id}>
@@ -125,8 +130,16 @@ export default function Trips() {
                 <div className="col-md-1">{item.destination.address.split(' ').slice(0, 3).join(' ')}</div>
                 <div className="col-md-1">{item.driver == null ? <div>Not assign</div> : item.driver.user.firstName}</div>
                 <div className="col-md-1">
-                  <i className="fa-solid fa-trash-can icon-color mx-3"></i>
-                  <i className="fa-solid fa-pencil icon-color"></i>
+                 <i className="fa-solid fa-trash-can icon-color mx-3"></i>
+                 <Link onClick={()=>{
+                  handleClickTrip(item)
+                 }} to={{ pathname: `/update/updatetrip/${item._id}`}} className='text-decoration-none'>
+                <i className="fa-solid fa-pencil icon-color"></i>
+                </Link>
+     
+{console.log("Item:", item)}
+
+
                 </div>
               </div>
             ))

@@ -40,6 +40,7 @@ let {isOpen,toggle} =useContext(storecontext)
     <li>
       <NavLink className='link text-white' to="/login"><i className="fa-solid fa-user" style={{paddingTop:isOpen? '0px' :'5px'}}></i> <span style={{display: isOpen? "inline" :'none'}}>Logout</span></NavLink>
     </li>
+   
   </ul>
 </nav> 
 

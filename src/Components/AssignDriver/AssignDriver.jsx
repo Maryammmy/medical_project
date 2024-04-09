@@ -86,7 +86,7 @@ let obj ={
   return (
     <div className='container-fluid'>
             {loading ? (
-           <AssignDriverSkeleton cards={2}/>
+           <AssignDriverSkeleton cards={6}/>
           ) : (
             driver.map((item) => (
               <div className="row my-3 py-3 brdr justify-content-around text-center" key={item.driver._id}>
@@ -97,19 +97,19 @@ let obj ={
                 id={item.driver._id}
                 value={item.driver._id}
                 onClick={() => handleRadioChange(item.driver._id)} 
-                style={{ width: '15px', height: '15px' }}
+                style={{ width: '18px', height: '18px' }}
                 />
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-2 d-flex justify-content-center">
                   <div className='images'><img src={item.driver.user.profileImage} alt="" />
                   </div>
                 </div>
-                <div className="col-md-2 d-flex align-items-center ">{item.driver.user.firstName}</div>
+                <div className="col-md-2 d-flex align-items-center justify-content-center">{item.driver.user.firstName}</div>
                 <div className="col-md-2 d-flex align-items-center  justify-content-center">{item.driver.user.phone}</div>
-               <div className='col-md-2 d-flex align-items-center'>
+               <div className='col-md-2 d-flex align-items-center justify-content-center'>
                 {item.driver.visible === false ? <span><i className="fa-solid fa-circle off pe-2"></i>Offline</span> : <span><span className="fa-solid fa-circle on pe-2"></span>Online</span>}
                 </div> 
-                <div className="col-md-2 d-flex align-items-center">
+                <div className="col-md-2 d-flex align-items-center justify-content-center">
                 {typeof item.distance === 'number' && item.distance.toFixed(1) +' miles'}
                 </div>
 

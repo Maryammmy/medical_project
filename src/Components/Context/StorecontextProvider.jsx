@@ -5,6 +5,7 @@ import { createContext, useState } from "react";
   export default function Storecontextprovider({children}){
     const baseUrl = "https://medicurb.onrender.com"
     const [isOpen,setIsOpen] =useState(false)
+    const[selected,setSelected] =useState({})
     const [selectedItemId, setSelectedItemId] = useState()
     const toggle =()=>setIsOpen(!isOpen)
     const handleLinkClick = (itemId) => {
@@ -12,7 +13,7 @@ import { createContext, useState } from "react";
         setSelectedItemId(itemId);
       }
     };
-    return <storecontext.Provider value={{baseUrl,isOpen,setIsOpen,toggle,handleLinkClick,selectedItemId,setSelectedItemId}}>
+    return <storecontext.Provider value={{baseUrl,isOpen,setIsOpen,toggle,handleLinkClick,selectedItemId,setSelectedItemId,selected,setSelected}}>
          {children}
     </storecontext.Provider>
  }
