@@ -76,11 +76,14 @@ color: rgba(136, 136, 136, 1);
   border-radius: 50%;
   overflow: hidden;
   padding: 0% !important;
+ 
+
 } 
 .imageee{
     width: 200px ;
     height: 100px;  
     padding: 0% !important;
+    border: 2px solid gainsboro;
 }
 .imageee img{
     width:100%;
@@ -104,3 +107,47 @@ color: rgba(136, 136, 136, 1);
     background-color: red !important;
     border-color: red !important;
 } */
+/* Modal Styles */
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+  }
+  
+  .modal-content {
+    position: relative;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 80%;
+    max-height: 80%;
+    overflow: auto;
+  }
+  
+  .modal-content img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .close:hover {
+    color: #000;
+  }
+  

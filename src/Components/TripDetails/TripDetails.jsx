@@ -9,14 +9,14 @@ import axios from 'axios';
 import { LoadScript, GoogleMap, Autocomplete,StandaloneSearchBox, InfoWindow, Marker }from '@react-google-maps/api';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Loading from '../Loading/Loading';
 
 const YOUR_API_KEY = 'AIzaSyDpRNzE-9ne0Gwcs_56dPa9E9aTCLsiECA';
 const libraries = ['places'];
 
 export default function TripDetails() {
-  const { baseUrl } = useContext(storecontext);
+  const { baseUrl,token } = useContext(storecontext);
   const [selectedDate, setSelectedDate] = useState(getTodayDate());
-  const token = localStorage.getItem('token');
   const [btnloading, setbtnloading] = useState(false);
   const [apiError, setApiError] = useState(null);
   let navigate = useNavigate();
@@ -309,7 +309,7 @@ export default function TripDetails() {
         </div>
       </div>
       {apiError && <div className="alert alert-danger">{apiError}</div>}
-        <button type='submit' className='btn-bg btn ms-auto d-block w-25 my-3 mx-3 fw-bold'   disabled={!trip.isValid}>{btnloading ? <i className="fa-solid fa-spinner"></i> : 'Next'}</button>
+        <button type='submit' className='btn-bg btn ms-auto d-block w-25 my-3 mx-3 fw-bold'   disabled={!trip.isValid}>{btnloading ? <Loading/> : 'Next'}</button>
     </form>
   </div>
   );

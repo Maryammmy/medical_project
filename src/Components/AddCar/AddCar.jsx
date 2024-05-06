@@ -8,12 +8,12 @@ import axios from 'axios';
 import upload from '../../assets/images/user-svgrepo-com 1(1).svg'
 import register from '../../assets/images/Group.svg'
 import insurance from '../../assets/images/card-emulator-pro-svgrepo-com 1.svg'
+import Loading from '../Loading/Loading';
 
 export default function AddCar() {
   let {id}=  useParams()
-  let {baseUrl} =useContext(storecontext)
+  let {baseUrl,token} =useContext(storecontext)
   const [btnloading,setbtnloading] =useState(false)
-  const token = localStorage.getItem('token');
   const [apiError, setApiError] = useState(null);
   const [registerImage, setRegisterImage] = useState(null);
   const [insuranceImage, setInsuranceImage] = useState(null);
@@ -42,7 +42,7 @@ export default function AddCar() {
      });
       console.log(response)
       setbtnloading(false)
-      navigate(`/adddriver/addlicenses/${response.data.data.driver}`)
+      navigate(`/adddriver/addcarablum/${response.data.data.driver}`)
     } catch (error) {
       console.error('API Error:', error);
       if (error.response && error.response.data && error.response.data.message) {
@@ -258,7 +258,7 @@ const validationSchema = yup.object().shape({
  
 
 {apiError && <div className="alert alert-danger">{apiError}</div>}
-<button type='submit' className='btn-bg btn ms-auto d-block w-25 my-3 mx-3 fw-bold'   disabled={!formik.isValid && formik.dirty}>{btnloading ? <i className="fa-solid fa-spinner"></i> : 'Next'}</button>
+<button type='submit' className='btn-bg btn ms-auto d-block w-25 my-3 mx-3 fw-bold'   disabled={!formik.isValid && formik.dirty}>{btnloading ? <Loading/> : 'Next'}</button>
     </form>
     </>
   );

@@ -1,13 +1,12 @@
 import React from "react";
 import Login from "./Components/Login/Login";
-import Sidebar from "./Components/Sidebar/Sidebar";
 import Drivers from "./Components/Drivers/Drivers";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import Reports from "./Components/Reports/Reports";
 import PendingDrivers from "./Components/PendingDrivers/PendingDrivers";
 import Trips from "./Components/Trips/Trips";
 import AllocateDriver from "./Components/AllocateDriver/AllocateDriver";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter} from "react-router-dom";
 import Userlayout from "./Components/Userlayout/Userlayout";
 import Driverdetails from "./Components/Driverdetails/Driverdetails";
 import ProtectedRoutes from "./Components/ProtectedRoutes/ProtectedRoutes";
@@ -17,8 +16,6 @@ import Notfound from "./Components/Notfound/Notfound";
 import AddDriverlayout from "./Components/AddDriverlayout/AddDriverlayout";
 import PersonalData from "./Components/PersonalData/PersonalData";
 import AddCar from "./Components/AddCar/AddCar";
-import AddLicenses from "./Components/AddLicenses/AddLicenses";
-import ImageUpload from "./Components/Uploadimages/ImageUpload";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -27,11 +24,14 @@ import AssignDriver from "./Components/AssignDriver/AssignDriver";
 import AddTriplayout from "./Components/AddTriplayout/AddTriplayout";
 import UpDateTriplayout from "./Components/UpDateTriplayout/UpDateTriplayout";
 import UpDateTrip from "./Components/UpDateTrip/UpDateTrip";
-import { Update } from "@mui/icons-material";
 import UpdateDriverlayout from "./Components/UpDateDriverlayout/UpDateDriverlayout";
 import UpdatePersonalData from "./Components/UpdatePersonalData/UpdatePersonalData";
+import AddCarAlbum from "./Components/AddCarAlbum/AddCarAlbum"
+import secureLocalStorage from "react-secure-storage";
 
 export default function App() {
+
+
   let routes = createBrowserRouter([
     {
       path: "/",
@@ -42,7 +42,7 @@ export default function App() {
           index: true,
           element: (
             <ProtectedRoutes>
-              <ImageUpload />
+             <Dashboard />
             </ProtectedRoutes>
           ),
         },
@@ -112,7 +112,7 @@ export default function App() {
       path: "/",
       element: <Authlayout />,
       children: [
-        { path: "/", element: <Login /> },
+        // { path: "/", element: <Login /> },
         { path: "login", element: <Login /> },
       ],
     },
@@ -123,17 +123,7 @@ export default function App() {
         { path: "/adddriver", element: <PersonalData /> },
         { path: "personaldata", element: <PersonalData /> },
         { path: "addcar/:id", element: <AddCar /> },
-        { path: "addlicenses/:id", element: <AddLicenses /> },
-      ],
-    },
-    {
-      path: "/updatedriver",
-      element: <AddDriverlayout />,
-      children: [
-        { path: "/updatedriver", element: <PersonalData /> },
-        { path: "personaldata", element: <PersonalData /> },
-        { path: "addcar/:id", element: <AddCar /> },
-        { path: "addlicenses/:id", element: <AddLicenses /> },
+        { path: "addcarablum/:id", element: <AddCarAlbum/>},
       ],
     },
     {
@@ -141,29 +131,31 @@ export default function App() {
       element: <AddTriplayout />,
       children: [
         { path: "/addtrip", element: <TripDetails /> },
-        { path: "tripdetails", element: <TripDetails /> },
-        { path: "assigndriver/:id", element: <AssignDriver /> },
+        { path: "tripdetails", element: <TripDetails />},
+        { path: "assigndriver/:id", element:<AssignDriver /> },
       ],
     },
     {
       path: "/update",
       element:<UpDateTriplayout/>,
       children: [
-        { path: "/update", element: <UpDateTrip/> },
-        { path: "updatetrip/:id", element: <UpDateTrip/> },
+        { path: "/update", element: <UpDateTrip/>},
+        { path: "updatetrip/:id", element: <UpDateTrip/>},
       ],
     },
     {
       path: "/updatedriver",
       element:<UpdateDriverlayout/>,
       children: [
-        { path: "/updatedriver", element: <UpdatePersonalData/> },
-        { path: "updatepersonaldata/:id", element:<UpdatePersonalData/>  },
+        { path: "/updatedriver", element: <ProtectedRoutes><UpdatePersonalData/></ProtectedRoutes> },
+        { path: "updatepersonaldata/:id", element:<ProtectedRoutes><UpdatePersonalData/></ProtectedRoutes>  },
       ],
     },
   ]);
+
   return (
     <>
+    
       <SkeletonTheme baseColor="#88888833">
         <Storecontextprovider>
           <RouterProvider router={routes} />

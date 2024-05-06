@@ -19,10 +19,10 @@ export default function AddDriverlayout() {
         <NavLink className='anch py-3' to='personaldata' style={{pointerEvents:'none'}}>Personal Data</NavLink>
         </li>
         <li  className='list-item'>
-        <NavLink className='anch py-3' to='addcar/:id' style={{pointerEvents:'none'}}>Add Car Information</NavLink>
+        <NavLink className='anch py-3' to='addcar' style={{pointerEvents:'none'}}>Add Car Information</NavLink>
         </li>
         <li  className='list-item'>
-        <NavLink className='anch py-3' to='addlicenses' style={{pointerEvents:'none'}}>Add Car Album</NavLink>
+        <NavLink className='anch py-3' to='addcarablum' style={{pointerEvents:'none'}}>Add Car Album</NavLink>
         </li>
         </ul>
     </nav>

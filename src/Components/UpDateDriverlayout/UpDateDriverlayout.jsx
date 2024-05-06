@@ -21,7 +21,7 @@ export default function UpdateDriverlayout() {
           <NavLink className='anch py-3' to='addcar/:id' >Add Car Information</NavLink>
           </li>
           <li  className='list-item'>
-          <NavLink className='anch py-3' to='addlicenses' >Add Car Album</NavLink>
+          <NavLink className='anch py-3' to='addcarablum/:id' >Add Car Album</NavLink>
           </li>
           </ul>
       </nav>

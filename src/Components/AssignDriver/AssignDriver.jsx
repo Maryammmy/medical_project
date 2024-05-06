@@ -4,14 +4,14 @@ import { storecontext } from '../Context/StorecontextProvider'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import CartSkeleton from '../CartSkeleton/CartSkeleton'
 import AssignDriverSkeleton from '../AssignDriverSkeleton/AssignDriverSkeleton'
+import Loading from '../Loading/Loading'
 
 
 export default function AssignDriver() {
 
 const [loading,setLoading] =useState(true)
 const [driver,setDriver] =useState([])
-const token = localStorage.getItem('token')
-let {baseUrl} =useContext(storecontext)
+let {baseUrl,token} =useContext(storecontext)
   const [selectedDriverId, setSelectedDriverId] = useState(null);
 const location = useLocation(); // Use useLocation hook to access location state
 const { latitude, longitude } = location.state;
@@ -119,7 +119,7 @@ let obj ={
             ))
           )}
             {apiError && <div className="alert alert-danger">{apiError}</div>}
-        <button onClick={sendDataToApi} type='submit' className='btn-bg btn ms-auto d-block w-25 my-3 mx-3 fw-bold' >{btnloading ? <i className="fa-solid fa-spinner"></i> : 'Assign'}</button>
+        <button onClick={sendDataToApi} type='submit' className='btn-bg btn ms-auto d-block w-25 my-3 mx-3 fw-bold' >{btnloading ? <Loading/> : 'Assign'}</button>
     </div>
   )
 }

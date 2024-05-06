@@ -3,9 +3,14 @@ import  './Sidebar.css'
 import logoSidebar from '../../assets/images/LOGO1_Medicurb_page-0001-removebg-preview 1.svg';
 import { NavLink } from 'react-router-dom';
 import { storecontext } from '../Context/StorecontextProvider';
+import secureLocalStorage from "react-secure-storage";
+
 
 export default function Sidebar () {
 let {isOpen,toggle} =useContext(storecontext)
+// const logout=()=>{
+//   secureLocalStorage.clear()
+// }
 
   return (
     
@@ -20,7 +25,8 @@ let {isOpen,toggle} =useContext(storecontext)
       <NavLink 
     className='text-white link'
     to="/dashboard">
-    <i className="fa-solid fa-table pe-1" style={{paddingTop:isOpen? '0px' :'5px'}} ></i><span  style={{display: isOpen? "inline" :'none'}}>Dashboard</span></NavLink> 
+    <i className="fa-solid fa-table pe-1" style={{paddingTop:isOpen? '0px' :'5px'}} ></i><span  style={{display: isOpen? "inline" :'none'}}>Dashboard</span>
+    </NavLink> 
     </li>
     <li>
       <NavLink className='link text-white' to="/drivers"><i className="fa-solid fa-user-group pe-1"style={{paddingTop:isOpen? '0px' :'5px'}} ></i> <span style={{display: isOpen? "inline" :'none'}}>Drivers</span></NavLink>

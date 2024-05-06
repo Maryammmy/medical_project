@@ -12,8 +12,7 @@ export default function PendingDrivers() {
   const [pendingdrivers,setpendingdrivers] =useState([])
   const [pagecount,setpagecount] =useState(0)
   const [loading,setloading] =useState(true)
-  const token = localStorage.getItem('token');
-  let {handleLinkClick,baseUrl} =useContext(storecontext)
+  let {handleLinkClick,baseUrl, setSelected,token} =useContext(storecontext)
   // async function getpendingdrivers(){
   //   try  {
   //      const data = await axios.get(`${baseUrl}/api/Admin/PendingDrivers/0`, {
@@ -81,15 +80,14 @@ export default function PendingDrivers() {
    },[])
 
     
-  // const handlePageClick = async (event) => {
-  //  const currentPage = event.selected
-  // const getPages = await getPage(currentPage)
-  
-  // };
+
   const handlePageClick =  (event) => {
     // const currentPage = event.selected;
     getPage(event.selected)
   };
+  const handleClickdriver = (item) => {
+    setSelected(item)
+  }
   return (
     <>
     <>  
@@ -112,41 +110,50 @@ export default function PendingDrivers() {
           <Link to='/adddriver/personaldata' className='btn btn-bg' > + Add Driver</Link>
         </div>
         <div className="container-fluid bg-white py-3 px-5 text-color text-center rounded-3">
-  <div className="row row-bg py-3 rounded-3">  
-    <div className="col-md-3">Name</div>
-    <div className="col-md-2">Address</div>
-    <div className="col-md-2">Phone number</div>
-    <div className="col-md-2">Active</div>
-    <div className="col-md-2">status</div>
-  </div>
+        <div className="row row-bg py-3 rounded-3  ">
+              <div className="col-md-2">Name</div>
+              <div className="col-md-2">Address</div>
+              <div className="col-md-2">Phone</div>
+              <div className="col-md-2">Active</div>
+              <div className="col-md-2">status</div>
+              <div className="col-md-2">Actions</div>
+            </div>
   {loading ? (
   <CartSkeleton cards={15} />
 ) : (
   pendingdrivers.map((item) => (
-    <div className="row my-3 py-3 brdr  justify-content-center" key={item._id}>
-     <div className='col-md-1'>
-        <div className='images'>
-        <img src={item.user.profileImage} alt=""  />
-        </div>
-        </div>
-        <div onClick={() => handleLinkClick(item._id)} data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" className="namee col-md-2 name-color d-flex align-items-center">{item.user.firstName}
-        <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style={{ width: '370px', textAlign: 'left' }}>
-          <div className="offcanvas-header">
-            <h5 id="offcanvasRightLabel">Driver Details</h5>
-            <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <div className="offcanvas-body">
-            <Driverdetails />
-          </div>
-        </div>
-        </div>
-       
-     
-      <div className="col-md-2  d-flex align-items-center ">{item.location.address.split(' ').slice(0, 3).join(' ')}</div>
-      <div className="col-md-2  d-flex align-items-center ">{item.user.phone}</div>
-      <div className="col-md-2  d-flex align-items-center">{item.visible === false ? <span><i className="fa-solid fa-circle off pe-2 "></i>Offline</span> : <span><span className="fa-solid fa-circle on pe-2"></span>Online</span>}</div>
-      <div className="col-md-2  d-flex align-items-center">{item.onTrip === false ? <span><i className="fa-solid fa-circle-check pe-2"></i>Available</span> : <span><i className="fa-solid fa-car-side pe-2"></i>On Trip</span>}</div>
+    <div className="row my-3 py-3 brdr   " key={item._id}>
+    <div className='col-md-1 '>
+      <div className='images'>
+        <img src={item.user.profileImage} alt="" />
+      </div>
     </div>
+    <div onClick={() => handleLinkClick(item._id)} data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" className="namee col-md-1 name-color d-flex align-items-center justify-content-center ">
+      {item.user.firstName+' '+item.user.lastName}
+    </div>
+    <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style={{ width: '370px', textAlign: 'left' }}>
+      <div className="offcanvas-header">
+        <h5 id="offcanvasRightLabel">Driver Details</h5>
+        <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div className="offcanvas-body">
+        <Driverdetails />
+      </div>
+    </div>
+
+    <div className="col-md-2 d-flex align-items-center justify-content-center ">{item.location.address.split(' ').slice(0, 3).join(' ')}</div>
+    <div className="col-md-2 d-flex align-items-center justify-content-center">{item.user.phone}</div>
+    <div className="col-md-2 d-flex align-items-center justify-content-center ">{item.visible === false ? <span><i className="fa-solid fa-circle off pe-2"></i>Offline</span> : <span><span className="fa-solid fa-circle on pe-2"></span>Online</span>}</div>
+    <div className="col-md-2 d-flex align-items-center justify-content-center">{item.onTrip === false ? <span><i className="fa-solid fa-circle-check pe-2"></i>Available</span> : <span><i className="fa-solid fa-car-side pe-2"></i>On Trip</span>}</div>
+    <div className="col-md-2 d-flex align-items-center justify-content-center">
+      <i className="fa-solid fa-trash-can icon-color mx-3"></i>
+      <Link onClick={() => {
+        handleClickdriver(item)
+      }} to={{ pathname: `/updatedriver/updatepersonaldata/${item._id}` }} className='text-decoration-none'>
+        <i className="fa-solid fa-pencil icon-color"></i>
+      </Link>
+    </div>
+  </div>
   ))
 )}
 

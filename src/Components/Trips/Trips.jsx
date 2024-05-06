@@ -4,29 +4,53 @@ import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import CartSkeleton from '../CartSkeleton/CartSkeleton';
 import TripSkeleton from '../TripSkeleton/TripSkeleton';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import * as XLSX from 'xlsx';
 
 export default function Trips() {
   const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(true);
-  const token = localStorage.getItem('token');
-  let { baseUrl,setSelected} = useContext(storecontext);
+  let { baseUrl, setSelected,excelData,setExcelData,token } = useContext(storecontext);
   const [pagecount, setPageCount] = useState(0);
   const [selectedDate, setSelectedDate] = useState(getTodayDate());
-  const [selectedType, setSelectedType] = useState(null)
+  let navigate =useNavigate()
+ console.log(excelData)
+  // Function to read the Excel file
+  const readExcelFile = (file) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const data = new Uint8Array(event.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
+      // Assuming there's only one sheet, and it's the first one
+      const sheet = workbook.Sheets[workbook.SheetNames[0]];
+      const jsonData = XLSX.utils.sheet_to_json(sheet);
+      setExcelData(jsonData);
+    };
+    reader.readAsArrayBuffer(file);
+  };
+
+  // Function to handle button click for file upload
+  const handleUploadClick = () => {
+    const fileInput = document.getElementById('fileInput');
+    fileInput.click();
+    if (excelData && excelData.length !== 0) {
+      navigate('/reports');
+  }
+  
+  };
 
   async function getPage(currentPage) {
     setLoading(true);
     try {
       const data = await axios.get(`${baseUrl}/api/Admin/Trips/${currentPage}?date=${selectedDate}`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
         },
       });
       if (data.status === 200) {
         setTrips(data.data.data);
         setLoading(false);
-        console.log(data)
+        console.log('trip', data)
       }
     } catch (err) {
       console.log(err);
@@ -43,6 +67,7 @@ export default function Trips() {
       });
       if (data.status === 200) {
         setPageCount(Math.ceil(data.data.data));
+        console.log('count', data)
       }
     } catch (err) {
       console.log(err);
@@ -57,6 +82,7 @@ export default function Trips() {
   const handlePageClick = (event) => {
     const currentPage = event.selected;
     getPage(currentPage);
+    console.log(currentPage)
   };
 
   const handleDateChange = (event) => {
@@ -71,7 +97,7 @@ export default function Trips() {
     const day = String(today.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
-  const handleClickTrip = (item)=>{
+  const handleClickTrip = (item) => {
     setSelected(item)
   }
 
@@ -93,19 +119,24 @@ export default function Trips() {
       </div>
       <div className="container-fluid bg-light">
         <div className="d-flex justify-content-between pt-3 widdth m-auto">
-      <div className=' w-25'> 
-      <input type="search" className='form-control w-100' placeholder='search'  />
-         <input
-            type="date"
-            className="form-control w-100 my-2"
-            value={selectedDate}
-            onChange={handleDateChange}/>
-         
-            </div>
-        
-        <div>  
-        <Link to="/addtrip/tripdetails" className="btn btn-bg"> + Add Trip </Link>
-        </div>
+          <div className=' w-25'>
+            <input type="search" className='form-control w-100' placeholder='search' />
+            <input
+              type="date"
+              className="form-control w-100 my-2"
+              value={selectedDate}
+              onChange={handleDateChange} />
+
+          </div>
+          <div>
+            <input id="fileInput" type="file" style={{ display: 'none' }} onChange={(e) => readExcelFile(e.target.files[0])} />
+            <button className='btn btn-bg' onClick={handleUploadClick}>Upload Excel File</button>
+            
+          </div>
+
+          <div>
+            <Link to="/addtrip/tripdetails" className="btn btn-bg"> + Add Trip </Link>
+          </div>
         </div>
         <div className="container-fluid bg-white py-3 px-5 text-color text-center rounded-3">
           <div className="row row-bg py-3 rounded-3 justify-content-around">
@@ -124,20 +155,20 @@ export default function Trips() {
             trips.map((item) => (
               <div className="row my-3 py-3 brdr justify-content-around" key={item._id}>
                 <div className="col-md-1">{item.time}</div>
-                <div className="col-md-1">{item.patient.firstName}</div>
+                <div className="col-md-1">{item.patient.firstName+' '+item.patient.lastName}</div>
                 <div className="col-md-1">{item.patient.phone}</div>
                 <div className="col-md-1">{item.pickup.address.split(' ').slice(0, 3).join(' ')}</div>
                 <div className="col-md-1">{item.destination.address.split(' ').slice(0, 3).join(' ')}</div>
                 <div className="col-md-1">{item.driver == null ? <div>Not assign</div> : item.driver.user.firstName}</div>
                 <div className="col-md-1">
-                 <i className="fa-solid fa-trash-can icon-color mx-3"></i>
-                 <Link onClick={()=>{
-                  handleClickTrip(item)
-                 }} to={{ pathname: `/update/updatetrip/${item._id}`}} className='text-decoration-none'>
-                <i className="fa-solid fa-pencil icon-color"></i>
-                </Link>
-     
-{console.log("Item:", item)}
+                  <i className="fa-solid fa-trash-can icon-color mx-3"></i>
+                  <Link onClick={() => {
+                    handleClickTrip(item)
+                  }} to={{ pathname: `/update/updatetrip/${item._id}` }} className='text-decoration-none'>
+                    <i className="fa-solid fa-pencil icon-color"></i>
+                  </Link>
+
+                 
 
 
                 </div>

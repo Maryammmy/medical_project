@@ -10,6 +10,7 @@ import upload from '../../assets/images/user-svgrepo-com 1(1).svg'
 import nationalFront from '../../assets/images/Group.svg'
 import nationalBack from '../../assets/images/card-emulator-pro-svgrepo-com 1.svg'
 import { LoadScript, GoogleMap, Autocomplete,StandaloneSearchBox, InfoWindow, Marker, LoadScriptNext }from '@react-google-maps/api';
+import Loading from '../Loading/Loading';
 
 
 
@@ -18,8 +19,6 @@ const YOUR_API_KEY = 'AIzaSyDpRNzE-9ne0Gwcs_56dPa9E9aTCLsiECA';
 const libraries = ["places"];
 export default function UpdatePersonalData() {
   
-
-  const token = localStorage.getItem('token');
   const [btnloading,setbtnloading] =useState(false);
   const [apiError, setApiError] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
@@ -34,7 +33,7 @@ export default function UpdatePersonalData() {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [mapVisible, setMapVisible] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const {baseUrl,selected} =useContext(storecontext)
+  const {baseUrl,selected,token} =useContext(storecontext)
   let navigate =useNavigate()
   let {id} =useParams()
   console.log((selected));
@@ -53,7 +52,7 @@ export default function UpdatePersonalData() {
     profile: yup.mixed().nullable().test('fileType', 'Invalid file format', (value) => {
       if (!value) return true; // Allow null value (no image provided)
       return value && ['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml', 'image/webp'].includes(value.type);
-    })
+    }),
     
       
  
@@ -232,7 +231,7 @@ export default function UpdatePersonalData() {
          
           </div>
         ) : (
-         <div className='div-img'> <img src={selected.user?.profileImage} alt="Placeholder" className="placeholder-image" />
+         <div className='div-img'> <img src={selected.user?.profileImage} alt="Placeholder" className="updated-image" />
           <i className="fa-solid fa-plus bg-i" ></i>
          </div>
         )}
@@ -260,7 +259,7 @@ export default function UpdatePersonalData() {
 
 
 {apiError && <div className="alert alert-danger">{apiError}</div>}
-      <button type='submit' className='btn-bg btn ms-auto d-block w-25 my-3 mx-3 fw-bold'   disabled={!formik.isValid && formik.dirty}>{btnloading ? <i className="fa-solid fa-spinner"></i> : 'Next'}</button>
+      <button type='submit' className='btn-bg btn ms-auto d-block w-25 my-3 mx-3 fw-bold'   disabled={!formik.isValid && formik.dirty}>{btnloading ? <Loading/>  : 'Update'}</button>
 
     </form>
   </>

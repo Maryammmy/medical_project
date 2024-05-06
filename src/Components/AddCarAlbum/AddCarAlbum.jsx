@@ -11,15 +11,12 @@ import left from '../../assets/images/car (2) 1(1).svg'
 import Modal from 'react-modal';
 import { toast } from 'react-toastify';
 import user from '../../assets/images/user-svgrepo-com 1(1).svg'
+import Loading from '../Loading/Loading';
 
 
-
-
-
-export default function AddLicenses() {
+export default function AddCarAlbum() {
   let {id} =useParams()
-  let {baseUrl} =useContext(storecontext)
-  const token = localStorage.getItem('token');
+  let {baseUrl,token} =useContext(storecontext)
   const [btnloading,setbtnloading] =useState(null);
   const [apiError, setApiError] = useState(null);
   const [frontImage, setFrontImage] = useState(null);
@@ -314,7 +311,7 @@ export default function AddLicenses() {
   </div>
   {apiError && <div className="alert alert-danger">{apiError}</div>}
 <button type='submit'   className='btn-bg btn ms-auto d-block w-25 my-3 mx-3 fw-bold' disabled={!formik.isValid && formik.dirty}   >
-  {btnloading ? <i className="fa-solid fa-spinner"></i> : 'Next'}
+  {btnloading ? <Loading/> : 'Next'}
 </button>
 <Modal
         isOpen={showModal}
