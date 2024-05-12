@@ -7,14 +7,17 @@ import Modal from 'react-modal';
 import user from '../../assets/images/user-svgrepo-com 1(1).svg'
 import CartSkeleton from '../CartSkeleton/CartSkeleton';
 import DriverSkeleton from '../DriverSkeleton/DriverSkeleton';
+import { useNavigate } from 'react-router-dom';
 
 export default function Driverdetails() {
   const [driverdetails, setDriverdetails] = useState({});
   const [loading, setLoading] = useState(true);
-  const { selectedItemId, baseUrl,token } = useContext(storecontext);
+  const { selectedItemId, baseUrl} = useContext(storecontext);
   const [apiError, setApiError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [modalImage, setModalImage] = useState(null);
+  let token =sessionStorage.getItem('token')
+  let navigate = useNavigate()
   const closeModal = () => {
     setShowModal(false);
     setModalImage(null);
@@ -44,6 +47,9 @@ export default function Driverdetails() {
       } catch (error) {
         setLoading(false)
         console.error(error);
+        if(error.response.data.message=="Authorization Failed"){
+          navigate('/login')
+        }
 
       }
 

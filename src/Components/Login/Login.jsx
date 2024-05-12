@@ -16,7 +16,7 @@ export default function Login() {
   const[show,setshow] =useState(false)
   const [btnloading,setbtnloading] =useState(false)
   const navigate =useNavigate()
-let {baseUrl,token} =useContext(storecontext)
+let {baseUrl} =useContext(storecontext)
 // const expirationDate = new Date();
 // expirationDate.setDate(expirationDate.getDate() + 1);
 // const expires = expirationDate.toUTCString();
@@ -50,7 +50,7 @@ let {baseUrl,token} =useContext(storecontext)
       sessionStorage.setItem('token', response.data.token);
       navigate('/dashboard')
      
-       console.log(typeof(response.data.token))
+     
      
         setbtnloading(false)
       })
@@ -136,11 +136,11 @@ let {baseUrl,token} =useContext(storecontext)
     <div className="container-fluid">
     <div className="row">
       <div className="col-md-6 col-img vh-100">
-        <div><img src={logologin} alt="" /></div>
-        <img src={imglogin} alt="" />
+        <div><img src={logologin} alt="" className='' /></div>
+       <div className='d-flex justify-content-center align-content-center mt-5'> <img src={imglogin} alt="" className='w-75' /></div>
       </div>
       <div className="col-md-6 my-5 py-5">
-        <div className='w-50 m-auto my-5 py-5'>
+        <div className='w-50 m-auto my-5 py-5 input-widthh'>
           <h2 className='my-2'>Sign in</h2>
           <form onSubmit={login.handleSubmit}>
             <div >

@@ -12,7 +12,7 @@ import Loading from '../Loading/Loading';
 
 export default function AddCar() {
   let {id}=  useParams()
-  let {baseUrl,token} =useContext(storecontext)
+  let {baseUrl} =useContext(storecontext)
   const [btnloading,setbtnloading] =useState(false)
   const [apiError, setApiError] = useState(null);
   const [registerImage, setRegisterImage] = useState(null);
@@ -20,6 +20,7 @@ export default function AddCar() {
   const [registerError, setRegisterError] = useState('');
   const [insuranceError, setInsuranceError] = useState('');
   let navigate =useNavigate()
+  let token =sessionStorage.getItem('token')
 
   const senddatatoapi=  async (values) => {
     setbtnloading(true)
@@ -47,6 +48,9 @@ export default function AddCar() {
       console.error('API Error:', error);
       if (error.response && error.response.data && error.response.data.message) {
         setApiError(error.response.data.message); 
+        if(error.response.data.message=="Authorization Failed"){
+          navigate('/login')
+        }
       } else {
         setApiError("An unexpected error occurred."); // Fallback error message
       }

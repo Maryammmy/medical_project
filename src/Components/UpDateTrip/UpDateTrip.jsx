@@ -15,7 +15,7 @@ const YOUR_API_KEY = 'AIzaSyDpRNzE-9ne0Gwcs_56dPa9E9aTCLsiECA';
 const libraries = ['places'];
 
 export default function UpDateTrip() {
-  const { baseUrl, selected ,token} = useContext(storecontext); 
+  const { baseUrl, selected} = useContext(storecontext); 
   const [btnloading, setbtnloading] = useState(false);
   const [apiError, setApiError] = useState(null);
   let navigate = useNavigate();
@@ -25,7 +25,7 @@ export default function UpDateTrip() {
   const searchBox = useRef(null);
   const [mapCenter, setMapCenter] = useState({ lat: 12.2121, lng: 32.322 });
   const [mapZoom, setMapZoom] = useState(10);
-
+let token =sessionStorage.getItem('token')
 
   let { id } = useParams()
   const initialDate = new Date(selected.date); // Convert the date string to a Date object
@@ -58,6 +58,9 @@ export default function UpDateTrip() {
         console.error("API Error:", error); // Log the error for debugging
         if (error.response && error.response.data && error.response.data.message) {
           setApiError(error.response.data.message);
+          if(error.response.data.message=="Authorization Failed"){
+            navigate('/login')
+          }
         } else {
           setApiError("An unexpected error occurred."); // Fallback error message
         }
@@ -156,8 +159,8 @@ export default function UpDateTrip() {
     <div>
       <h5 className='px-3 pt-3'>Update Trip</h5>
       <form onSubmit={trip.handleSubmit}>
-        <div className='d-flex'>
-          <div className='w-50'>
+        <div className='d-flex input-container'>
+          <div className='w-50 input-width'>
             <label className=' mx-3 mt-2'>First Name</label>
             <input type="text" className='form-control mt-2  mb-4  py-2 w-75 mx-3' name="firstName" value={trip.values.firstName} onChange={trip.handleChange} placeholder='First Name' onBlur={trip.handleBlur} />
             {trip.errors.firstName && trip.touched.firstName ? <div className="alert alert-danger w-75 mx-3">{trip.errors.firstName}</div> : ''}
@@ -177,7 +180,7 @@ export default function UpDateTrip() {
             {trip.errors.number && trip.touched.number ? <div className="alert alert-danger w-75 mx-3">{trip.errors.number}</div> : ''}
 
           </div>
-          <div className='w-50'>
+          <div className='w-50 input-width'>
             <LoadScript googleMapsApiKey={YOUR_API_KEY} libraries={libraries}>
               <Autocomplete
                 onLoad={(autocomplete) => {

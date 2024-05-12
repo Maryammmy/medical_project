@@ -75,6 +75,9 @@ export default function AssignDriver() {
         console.error("API Error:", error); // Log the error for debugging
         if (error.response && error.response.data && error.response.data.message) {
           setApiError(error.response.data.message);
+          if(error.response.data.message=="Authorization Failed"){
+            navigate('/login')
+          }
         } else {
           setApiError("An unexpected error occurred."); // Fallback error message
         }

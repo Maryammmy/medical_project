@@ -33,8 +33,9 @@ export default function UpdatePersonalData() {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [mapVisible, setMapVisible] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const {baseUrl,selected,token} =useContext(storecontext)
+  const {baseUrl,selected} =useContext(storecontext)
   let navigate =useNavigate()
+  let token = sessionStorage.getItem('token')
   let {id} =useParams()
   console.log((selected));
   
@@ -85,6 +86,9 @@ export default function UpdatePersonalData() {
       
       if (error.response && error.response.data && error.response.data.message) {
         setApiError(error.response.data.message); 
+        if(error.response.data.message=="Authorization Failed"){
+          navigate('/login')
+        }
       } else {
         setApiError("An unexpected error occurred."); // Fallback error message
       }

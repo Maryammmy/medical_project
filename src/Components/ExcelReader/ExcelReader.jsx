@@ -8,7 +8,7 @@ import Loading from '../Loading/Loading';
 import Modal from 'react-modal';
 
 function ExcelReader() {
-  const { excelData, baseUrl, setSelected, selected,token } = useContext(storecontext);
+  const { excelData, baseUrl, setSelected, selected } = useContext(storecontext);
   const [currentPage, setCurrentPage] = useState(0);
   const [loading, setLoading] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
@@ -17,7 +17,7 @@ function ExcelReader() {
   const [showModal, setShowModal] = useState(false);
   const [index,setIndex]=useState(null)
   const [formattedData,setFormattedData] =useState([])
- 
+ let token = sessionStorage.getItem('token')
 console.log(formattedData)
   const itemsPerPage = 10;
   const getAddressCoordinates = async (address) => {
@@ -187,6 +187,9 @@ console.log(formattedData)
 
       if (error.response && error.response.data && error.response.data.message) {
         setApiError(error.response.data.message);
+        if(error.response.data.message=="Authorization Failed"){
+          navigate('/login')
+        }
       } else {
         setApiError("An unexpected error occurred."); // Fallback error message
       }

@@ -15,11 +15,12 @@ const YOUR_API_KEY = 'AIzaSyDpRNzE-9ne0Gwcs_56dPa9E9aTCLsiECA';
 const libraries = ['places'];
 
 export default function TripDetails() {
-  const { baseUrl,token } = useContext(storecontext);
+  const { baseUrl} = useContext(storecontext);
   const [selectedDate, setSelectedDate] = useState(getTodayDate());
   const [btnloading, setbtnloading] = useState(false);
   const [apiError, setApiError] = useState(null);
   let navigate = useNavigate();
+  let token = sessionStorage.getItem('token')
   const [selectedPickup, setSelectedPickup] = useState(null);
   const [selectedDestination, setSelectedDestination] = useState(null);
   const searchBoxRef = useRef(null);
@@ -57,6 +58,9 @@ export default function TripDetails() {
         console.error("API Error:", error); // Log the error for debugging
         if (error.response && error.response.data && error.response.data.message) {
           setApiError(error.response.data.message);
+          if(error.response.data.message=="Authorization Failed"){
+            navigate('/login')
+          }
         } else {
           setApiError("An unexpected error occurred."); // Fallback error message
         }

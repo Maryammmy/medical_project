@@ -16,7 +16,7 @@ import Loading from '../Loading/Loading';
 
 export default function AddCarAlbum() {
   let {id} =useParams()
-  let {baseUrl,token} =useContext(storecontext)
+  let {baseUrl} =useContext(storecontext)
   const [btnloading,setbtnloading] =useState(null);
   const [apiError, setApiError] = useState(null);
   const [frontImage, setFrontImage] = useState(null);
@@ -29,6 +29,7 @@ export default function AddCarAlbum() {
   const [leftError, setLeftError] = useState('');
   const [showModal, setShowModal] = useState(false);
  let navigate =useNavigate()
+ let token = sessionStorage.getItem('token')
  
   const sendDataToApi = async (values) => {
    
@@ -58,6 +59,9 @@ export default function AddCarAlbum() {
       
       if (error.response && error.response.data && error.response.data.message) {
         setApiError(error.response.data.message); 
+        if(error.response.data.message=="Authorization Failed"){
+          navigate('/login')
+        }
       } else {
         setApiError("An unexpected error occurred."); // Fallback error message
       }

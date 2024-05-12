@@ -14,7 +14,6 @@ export default function AssignDriverSkeleton({cards}) {
         <div className="col-md-2 d-flex align-items-center skeleton-animation"><Skeleton width={120} height={12}/></div>
         <div className="col-md-2 d-flex align-items-center skeleton-animation"><Skeleton width={120} height={12} /></div>
         <div className="col-md-2 d-flex align-items-center skeleton-animation"><Skeleton width={120} height={12}/></div>
-        <div className="col-md-2 d-flex align-items-center skeleton-animation"><Skeleton width={120} height={12}/></div>
       </div>
     ))}
   </div>

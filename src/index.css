@@ -143,6 +143,9 @@ position: relative;
 .input-width{
   width: 100% !important;
 }
+.input-widthh{
+width: 80% !important;
+}
 .outlet-width{
   width: 80%;
 }
@@ -179,7 +182,9 @@ position: relative;
   .input-see{
     width: 60% !important;
   }
-
+  .input-widthh{
+    width: 70% !important;
+    }
 }
 
 @media (min-width:768px) and (max-width:991px) {
@@ -198,6 +203,9 @@ position: relative;
   .input-see{
     width: 50% !important;
   }
+  .input-widthh{
+    width: 80% !important;
+    }
 }
 @media (min-width:992px) and (max-width:1199px) {
   .input-container{
@@ -212,6 +220,9 @@ position: relative;
   .input-see{
     width: 40% !important;
   }
+  .input-widthh{
+    width: 70% !important;
+    }
 }
 
 

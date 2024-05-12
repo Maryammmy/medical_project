@@ -14,7 +14,7 @@ import Loading from '../Loading/Loading';
 const YOUR_API_KEY = 'AIzaSyDpRNzE-9ne0Gwcs_56dPa9E9aTCLsiECA';
 const libraries = ["places"];
 export default function PersonalData() {
-  const { baseUrl,token } = useContext(storecontext);
+  const { baseUrl } = useContext(storecontext);
   const [btnloading, setbtnloading] = useState(false);
   const [apiError, setApiError] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
@@ -30,6 +30,7 @@ export default function PersonalData() {
   const [mapVisible, setMapVisible] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   let navigate = useNavigate()
+  let token =sessionStorage.getItem('token')
 
 
 
@@ -96,6 +97,9 @@ export default function PersonalData() {
 
       if (error.response && error.response.data && error.response.data.message) {
         setApiError(error.response.data.message);
+        if(error.response.data.message=="Authorization Failed"){
+          navigate('/login')
+        }
       } else {
         setApiError("An unexpected error occurred."); // Fallback error message
       }
