@@ -209,8 +209,8 @@ export default function PersonalData() {
     <>
       <h5 className='px-3 pt-3'>Personal Data</h5>
       <form onSubmit={formik.handleSubmit}>
-        <div className='d-flex'>
-          <div className='w-50'>
+        <div className='d-flex input-container'>
+          <div className='w-50 input-width'>
             <input type="text" className='form-control  my-4  py-2 w-75 mx-3' name="firstName" value={formik.values.firstName} onChange={formik.handleChange} placeholder='First Name' onBlur={formik.handleBlur} />
             {formik.errors.firstName && formik.touched.firstName ? <div className="alert alert-danger w-75 mx-3">{formik.errors.firstName}</div> : ''}
             <input type="text" className='form-control  my-4  w-75 mx-3 py-2' name="lastName" value={formik.values.lastName} onChange={formik.handleChange} placeholder='Last Name' onBlur={formik.handleBlur} />
@@ -277,7 +277,7 @@ export default function PersonalData() {
 
 
           </div>
-          <div className=' w-50'>
+          <div className=' w-50 input-width'>
             <div className='mt-3 mb-4 mx-5 px-5'>
               <label htmlFor="profileImageUpload">
 
@@ -307,7 +307,7 @@ export default function PersonalData() {
 
             {/* <input type="file"className='form-control  my-4'name="nationalBack"onChange={(event) => formik.setFieldValue("nationalBack", event.currentTarget.files[0])} onBlur={formik.handleBlur}/>
         {formik.errors.nationalBack && formik.touched.nationalBack ? <div className="alert alert-danger">{formik.errors.nationalBack}</div> : ''} */}
-            <div className='d-flex gap-5'>
+            <div className='d-flex gap-5 padding-images'>
               <div>
                 <label htmlFor="nationalFrontUpload">
                   {nationalFrontImage ? (
