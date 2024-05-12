@@ -57,7 +57,7 @@ export default function Trips() {
       console.log(err);
       setLoading(false);
       if(err.response.data.message =="Authorization Failed"){
-        nagivate('/login')
+        navigate('/login')
       }
     }
   }
@@ -76,7 +76,7 @@ export default function Trips() {
     } catch (err) {
       console.log(err);
       if(err.response.data.message =="Authorization Failed"){
-        nagivate('/login')
+        navigate('/login')
       }
     }
   }

@@ -13,7 +13,7 @@ export default function PendingDrivers() {
   const [pagecount, setpagecount] = useState(0)
   const [loading, setloading] = useState(true)
   let { handleLinkClick, baseUrl, setSelected } = useContext(storecontext)
-  let nagivate =useNavigate()
+  let navigate =useNavigate()
   let token =sessionStorage.getItem('token')
   // async function getpendingdrivers(){
   //   try  {
@@ -54,7 +54,7 @@ export default function PendingDrivers() {
       .catch(err => {
         console.log(err)
         if(err.response.data.message =="Authorization Failed"){
-          nagivate('/login')
+          navigate('/login')
         }
       })
   }
@@ -76,7 +76,7 @@ export default function PendingDrivers() {
       .catch((error) => {
         setloading(false)
         if(error.response.data.message =="Authorization Failed"){
-          nagivate('/login')
+          navigate('/login')
         }
       })
   }

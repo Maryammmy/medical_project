@@ -16,7 +16,7 @@ export default function Drivers() {
   const [pagecount, setpagecount] = useState(0)
   const [loading, setloading] = useState(true)
   let { handleLinkClick, baseUrl, setSelected} = useContext(storecontext)
-  let nagivate =useNavigate()
+  let navigate =useNavigate()
   let token =sessionStorage.getItem('token')
  
   // async function getdrivers(){
@@ -53,7 +53,7 @@ export default function Drivers() {
     } catch (error) {
       console.log(error)
       if(error.response.data.message =="Authorization Failed"){
-        nagivate('/login')
+        navigate('/login')
       }
     }
   }
@@ -75,7 +75,7 @@ export default function Drivers() {
       console.log(err);
       setloading(false)
       if(err.response.data.message =="Authorization Failed"){
-        nagivate('/login')
+        navigate('/login')
       }
 
     }

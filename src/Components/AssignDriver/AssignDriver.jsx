@@ -9,20 +9,20 @@ import Loading from '../Loading/Loading'
 
 export default function AssignDriver() {
 
-const [loading,setLoading] =useState(true)
-const [driver,setDriver] =useState([])
-let {baseUrl} =useContext(storecontext)
+  const [loading, setLoading] = useState(true)
+  const [driver, setDriver] = useState([])
+  let { baseUrl } = useContext(storecontext)
   const [selectedDriverId, setSelectedDriverId] = useState(null);
-const location = useLocation(); // Use useLocation hook to access location state
-const { latitude, longitude } = location.state;
-const [btnloading, setbtnloading] = useState(false);
-const [apiError, setApiError] = useState(null);
-let navigate = useNavigate();
-let token =sessionStorage.getItem('token')
-let {id} =useParams()
-let obj ={
-  driver : selectedDriverId
-}
+  const location = useLocation(); // Use useLocation hook to access location state
+  const { latitude, longitude } = location.state;
+  const [btnloading, setbtnloading] = useState(false);
+  const [apiError, setApiError] = useState(null);
+  let navigate = useNavigate()
+  let token = sessionStorage.getItem('token')
+  let { id } = useParams()
+  let obj = {
+    driver: selectedDriverId
+  }
 
 
 
@@ -35,95 +35,95 @@ let obj ={
           'Authorization': `Bearer ${token}`,
         }
       });
-       
-      if (data.status==200) {
+
+      if (data.status == 200) {
         setDriver(data.data.data)
         console.log(data.data.data)
         setLoading(false)
-       } 
+      }
     } catch (err) {
       console.log(err);
       setLoading(false)
-      if(err.response.data.message =="Authorization Failed"){
-        nagivate('/login')
+      if (err.response.data.message == "Authorization Failed") {
+        navigate('/login')
       }
-    
-    } 
+
+    }
   }
-  
+
   const handleRadioChange = (driverId) => {
     setSelectedDriverId(driverId); // Set the selected driver ID
     console.log('Selected Driver ID:', driverId); // Log the selected driver ID
     // Here you can send the selected driver ID as a parameter to another function
   };
-    useEffect(()=>{
-     getDriver()
-    },[])
-    const sendDataToApi = () => {
-      setbtnloading(true);
-      axios.put(`${baseUrl}/api/Admin/UpdateTrip?id=${id}`, obj, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          console.log("API Response:", response)
-          navigate(`/trips`); 
-          setbtnloading(false);
-        })
-        .catch((error) => {
-          console.error("API Error:", error); // Log the error for debugging
-          if (error.response && error.response.data && error.response.data.message) {
-            setApiError(error.response.data.message);
-          } else {
-            setApiError("An unexpected error occurred."); // Fallback error message
-          }
-          setbtnloading(false);
-        });
-        
-    };
-   
- 
-  
+  useEffect(() => {
+    getDriver()
+  }, [])
+  const sendDataToApi = () => {
+    setbtnloading(true);
+    axios.put(`${baseUrl}/api/Admin/UpdateTrip?id=${id}`, obj, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        console.log("API Response:", response)
+        navigate(`/trips`);
+        setbtnloading(false);
+      })
+      .catch((error) => {
+        console.error("API Error:", error); // Log the error for debugging
+        if (error.response && error.response.data && error.response.data.message) {
+          setApiError(error.response.data.message);
+        } else {
+          setApiError("An unexpected error occurred."); // Fallback error message
+        }
+        setbtnloading(false);
+      });
 
- 
+  };
+
+
+
+
+
   return (
     <div className='container-fluid'>
-            {loading ? (
-           <AssignDriverSkeleton cards={6}/>
-          ) : (
-            driver.map((item) => (
-              <div className="row my-3 py-3 brdr justify-content-around text-center" key={item.driver._id}>
-               <div className='col-md-1 d-flex align-items-center justify-content-center'>
-               <input
+      {loading ? (
+        <AssignDriverSkeleton cards={6} />
+      ) : (
+        driver.map((item) => (
+          <div className="row my-3 py-3 brdr justify-content-around text-center" key={item.driver._id}>
+            <div className='col-md-1 d-flex align-items-center justify-content-center'>
+              <input
                 type="radio"
                 name="selectedDriver"
                 id={item.driver._id}
                 value={item.driver._id}
-                onClick={() => handleRadioChange(item.driver._id)} 
+                onClick={() => handleRadioChange(item.driver._id)}
                 style={{ width: '18px', height: '18px' }}
-                />
-                </div>
-                <div className="col-md-2 d-flex justify-content-center">
-                  <div className='images'><img src={item.driver.user.profileImage} alt="" />
-                  </div>
-                </div>
-                <div className="col-md-2 d-flex align-items-center justify-content-center">{item.driver.user.firstName}</div>
-                <div className="col-md-2 d-flex align-items-center  justify-content-center">{item.driver.user.phone}</div>
-               <div className='col-md-2 d-flex align-items-center justify-content-center'>
-                {item.driver.visible === false ? <span><i className="fa-solid fa-circle off pe-2"></i>Offline</span> : <span><span className="fa-solid fa-circle on pe-2"></span>Online</span>}
-                </div> 
-                <div className="col-md-2 d-flex align-items-center justify-content-center">
-                {typeof item.distance === 'number' && item.distance.toFixed(1) +' miles'}
-                </div>
+              />
+            </div>
+            <div className="col-md-2 d-flex justify-content-center">
+              <div className='images'><img src={item.driver.user.profileImage} alt="" />
+              </div>
+            </div>
+            <div className="col-md-2 d-flex align-items-center justify-content-center">{item.driver.user.firstName}</div>
+            <div className="col-md-2 d-flex align-items-center  justify-content-center">{item.driver.user.phone}</div>
+            <div className='col-md-2 d-flex align-items-center justify-content-center'>
+              {item.driver.visible === false ? <span><i className="fa-solid fa-circle off pe-2"></i>Offline</span> : <span><span className="fa-solid fa-circle on pe-2"></span>Online</span>}
+            </div>
+            <div className="col-md-2 d-flex align-items-center justify-content-center">
+              {typeof item.distance === 'number' && item.distance.toFixed(1) + ' miles'}
+            </div>
 
-              
-                </div>
-            
-            ))
-          )}
-            {apiError && <div className="alert alert-danger">{apiError}</div>}
-        <button onClick={sendDataToApi} type='submit' className='btn-bg btn ms-auto d-block w-25 my-3 mx-3 fw-bold' >{btnloading ? <Loading/> : 'Assign'}</button>
+
+          </div>
+
+        ))
+      )}
+      {apiError && <div className="alert alert-danger">{apiError}</div>}
+      <button onClick={sendDataToApi} type='submit' className='btn-bg btn ms-auto d-block w-25 my-3 mx-3 fw-bold' >{btnloading ? <Loading /> : 'Assign'}</button>
     </div>
   )
 }
