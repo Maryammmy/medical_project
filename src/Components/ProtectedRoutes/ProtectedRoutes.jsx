@@ -4,7 +4,8 @@ import { jwtDecode } from "jwt-decode";
 import { storecontext } from '../Context/StorecontextProvider';
 
 export default function ProtectedRoutes({children}) {
-   const {token} =useContext(storecontext)
+ 
+   const token =sessionStorage.getItem('token')
 
 try {
     const decoded = jwtDecode(token);
@@ -12,7 +13,7 @@ try {
    console.log(typeof(token))
 }
 catch (error){
-    // localStorage.clear()
+    sessionStorage.clear()
     console.log(error)
     console.log(typeof(token))
     return < Navigate to='/login'/>   

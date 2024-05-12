@@ -1,7 +1,7 @@
 
 import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import secureLocalStorage from "react-secure-storage";
+
 
 
   export let storecontext= createContext(0)
@@ -11,10 +11,10 @@ import secureLocalStorage from "react-secure-storage";
     const[selected,setSelected] =useState({})
     const [excelData, setExcelData] = useState([]);
     const [selectedItemId, setSelectedItemId] = useState()
-    const token = sessionStorage.getItem('token')
+    // const tokencheck = sessionStorage.getItem('token')
     // const token = typeof tokencheck === 'string' ? tokencheck : JSON.stringify(tokencheck);
     // console.log(typeof(token))
- 
+
   
     const toggle =()=>setIsOpen(!isOpen)
     const handleLinkClick = (itemId) => {
@@ -22,7 +22,7 @@ import secureLocalStorage from "react-secure-storage";
         setSelectedItemId(itemId);
       }
     };
-    return <storecontext.Provider value={{baseUrl,isOpen,setIsOpen,toggle,handleLinkClick,selectedItemId,setSelectedItemId,selected,setSelected,excelData,setExcelData,token}}>
+    return <storecontext.Provider value={{baseUrl,isOpen,setIsOpen,toggle,handleLinkClick,selectedItemId,setSelectedItemId,selected,setSelected,excelData,setExcelData}}>
          {children}
     </storecontext.Provider>
  }

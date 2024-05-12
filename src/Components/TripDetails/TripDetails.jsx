@@ -172,8 +172,8 @@ export default function TripDetails() {
     <div>
     <h5 className='px-3 pt-3'>Trip Details</h5>
     <form onSubmit={trip.handleSubmit}>
-      <div className='d-flex'>
-        <div className='w-50'>
+      <div className='d-flex input-container'>
+        <div className='w-50 input-width'>
           <label className=' mx-3 mt-2'>First Name</label>
         <input type="text" className='form-control mt-2  mb-4  py-2 w-75 mx-3' name="firstName" value={trip.values.firstName} onChange={trip.handleChange} placeholder='First Name'  onBlur={trip.handleBlur} />
         {trip.errors.firstName && trip.touched.firstName ? <div className="alert alert-danger w-75 mx-3">{trip.errors.firstName}</div> : ''}
@@ -196,7 +196,7 @@ export default function TripDetails() {
         {trip.errors.number && trip.touched.number ? <div className="alert alert-danger w-75 mx-3">{trip.errors.number}</div> : ''}
         
         </div>
-        <div className='w-50'>
+        <div className='w-50 input-width'>
         <LoadScript googleMapsApiKey={YOUR_API_KEY} libraries={libraries}>
           <Autocomplete
   onLoad={(autocomplete) => {
@@ -309,7 +309,9 @@ export default function TripDetails() {
         </div>
       </div>
       {apiError && <div className="alert alert-danger">{apiError}</div>}
-        <button type='submit' className='btn-bg btn ms-auto d-block w-25 my-3 mx-3 fw-bold'   disabled={!trip.isValid}>{btnloading ? <Loading/> : 'Next'}</button>
+       <div className='text-end'>
+       <button type='submit' className='btn-bg btn px-5 py-2 my-3 mx-3 fw-bold'   disabled={!trip.isValid}>{btnloading ? <Loading/> : 'Next'}</button>
+       </div>
     </form>
   </div>
   );

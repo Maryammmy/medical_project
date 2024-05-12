@@ -27,7 +27,8 @@ import UpDateTrip from "./Components/UpDateTrip/UpDateTrip";
 import UpdateDriverlayout from "./Components/UpDateDriverlayout/UpDateDriverlayout";
 import UpdatePersonalData from "./Components/UpdatePersonalData/UpdatePersonalData";
 import AddCarAlbum from "./Components/AddCarAlbum/AddCarAlbum"
-import secureLocalStorage from "react-secure-storage";
+
+import ExcelReader from "./Components/ExcelReader/ExcelReader";
 
 export default function App() {
 
@@ -99,6 +100,14 @@ export default function App() {
           element: (
             <ProtectedRoutes>
               <Driverdetails />
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "excel",
+          element: (
+            <ProtectedRoutes>
+             <ExcelReader/>
             </ProtectedRoutes>
           ),
         },

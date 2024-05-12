@@ -156,8 +156,8 @@ export default function UpdatePersonalData() {
     <>
     <h5 className='px-3 pt-3'>Personal Data</h5>
     <form onSubmit={formik.handleSubmit}>
-   <div className='d-flex'>
-    <div className='w-50'>
+   <div className='d-flex input-container'>
+    <div className='w-50 input-width'>
       <input type="text" className='form-control  my-4  py-2 w-75 mx-3' name="firstName" value={formik.values.firstName} onChange={formik.handleChange} placeholder='First Name'  onBlur={formik.handleBlur} />
       {formik.errors.firstName && formik.touched.firstName ? <div className="alert alert-danger w-75 mx-3">{formik.errors.firstName}</div> : ''}
       <input type="text" className='form-control  my-4  w-75 mx-3 py-2' name="lastName" value={formik.values.lastName} onChange={formik.handleChange} placeholder='Last Name'   onBlur={formik.handleBlur} />
@@ -222,7 +222,7 @@ export default function UpdatePersonalData() {
 
      
       </div>
-  <div className=' w-50'>
+  <div className=' w-50 input-width'>
 <div className='mt-3 mb-4 mx-5 px-5'>
    <label htmlFor="profileImageUpload">
   
@@ -259,7 +259,7 @@ export default function UpdatePersonalData() {
 
 
 {apiError && <div className="alert alert-danger">{apiError}</div>}
-      <button type='submit' className='btn-bg btn ms-auto d-block w-25 my-3 mx-3 fw-bold'   disabled={!formik.isValid && formik.dirty}>{btnloading ? <Loading/>  : 'Update'}</button>
+    <div className='text-end '>  <button type='submit' className='btn-bg btn px-5 py-2 my-3 mx-3 fw-bold'   disabled={!formik.isValid && formik.dirty}>{btnloading ? <Loading/>  : 'Update'}</button></div>
 
     </form>
   </>

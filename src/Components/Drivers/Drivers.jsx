@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import Loading from '../Loading/Loading';
 import './Drivers.css'
 import Driverdetails from '../Driverdetails/Driverdetails';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { storecontext } from '../Context/StorecontextProvider';
 import ReactPaginate from 'react-paginate';
 import Skeleton from 'react-loading-skeleton'
@@ -15,7 +15,9 @@ export default function Drivers() {
   const [drivers, setdrivers] = useState([])
   const [pagecount, setpagecount] = useState(0)
   const [loading, setloading] = useState(true)
-  let { handleLinkClick, baseUrl, setSelected,token } = useContext(storecontext)
+  let { handleLinkClick, baseUrl, setSelected} = useContext(storecontext)
+  let nagivate =useNavigate()
+  let token =sessionStorage.getItem('token')
  
   // async function getdrivers(){
   //  try  {
@@ -49,9 +51,10 @@ export default function Drivers() {
       }
       console.log(response.data.data)
     } catch (error) {
-      console.log(error);
-
-
+      console.log(error)
+      if(error.response.data.message =="Authorization Failed"){
+        nagivate('/login')
+      }
     }
   }
 
@@ -71,6 +74,9 @@ export default function Drivers() {
     } catch (err) {
       console.log(err);
       setloading(false)
+      if(err.response.data.message =="Authorization Failed"){
+        nagivate('/login')
+      }
 
     }
   }
@@ -113,23 +119,30 @@ export default function Drivers() {
           </div>
         </div>
         <div className="container-fluid bg-light">
-          <div className='d-flex justify-content-between py-4 widdth m-auto'>
-            <input type="search" className='form-control w-25' placeholder='search' />
-            <Link to='/adddriver/personaldata' className='btn btn-bg' > + Add Driver</Link>
+          <div className='d-flex justify-content-between py-4 widdth m-auto input-child '>
+            <input type="search" className='form-control w-25 input-see' placeholder='search' />
+            <Link to='/adddriver/personaldata' className='btn btn-bg mt-3 mt-md-0' > + Add Driver</Link>
           </div>
           <div className="container-fluid bg-white py-3 px-5 text-color text-center rounded-3">
-          
+          <div className="row row-bg py-3 rounded-3  ">
+              <div className="col-md-2">Name</div>
+              <div className="col-md-2">Address</div>
+              <div className="col-md-2">Phone</div>
+              <div className="col-md-2">Active</div>
+              <div className="col-md-2">status</div>
+              <div className="col-md-2">Actions</div>
+            </div>
             {loading ? (
               <CartSkeleton cards={6} />
             ) : (
               drivers.map((item) => (
-                <div className="row my-3 py-3 brdr" key={item._id}>
-                  <div className='col-md-1 '>
+                <div className="row my-3 py-3 brdr " key={item._id}>
+                  <div className='col-md-1 d-flex justify-content-center d-md-block'>
                     <div className='images'>
                       <img src={item.user.profileImage} alt="" />
                     </div>
                   </div>
-                  <div onClick={() => handleLinkClick(item._id)} data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" className="namee col-md-1 name-color d-flex align-items-center justify-content-center ">
+                  <div onClick={() => handleLinkClick(item._id)} data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" className="namee  col-md-2 col-xl-1 name-color d-flex align-items-center justify-content-center  text-md-end text-xl-center">
                     {item.user.firstName+' '+item.user.lastName}
                   </div>
                   <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style={{ width: '370px', textAlign: 'left' }}>
@@ -146,7 +159,7 @@ export default function Drivers() {
                   <div className="col-md-2 d-flex align-items-center justify-content-center">{item.user.phone}</div>
                   <div className="col-md-2 d-flex align-items-center justify-content-center ">{item.visible === false ? <span><i className="fa-solid fa-circle off pe-2"></i>Offline</span> : <span><span className="fa-solid fa-circle on pe-2"></span>Online</span>}</div>
                   <div className="col-md-2 d-flex align-items-center justify-content-center">{item.onTrip === false ? <span><i className="fa-solid fa-circle-check pe-2"></i>Available</span> : <span><i className="fa-solid fa-car-side pe-2"></i>On Trip</span>}</div>
-                  <div className="col-md-2 d-flex align-items-center justify-content-center">
+                  <div className=" col-md-1 col-xl-2 d-flex align-items-center justify-content-center">
                     <i className="fa-solid fa-trash-can icon-color mx-3"></i>
                     <Link onClick={() => {
                       handleClickdriver(item)

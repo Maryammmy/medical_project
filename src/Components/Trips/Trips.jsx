@@ -10,10 +10,11 @@ import * as XLSX from 'xlsx';
 export default function Trips() {
   const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(true);
-  let { baseUrl, setSelected,excelData,setExcelData,token } = useContext(storecontext);
+  let { baseUrl, setSelected,excelData,setExcelData} = useContext(storecontext);
   const [pagecount, setPageCount] = useState(0);
   const [selectedDate, setSelectedDate] = useState(getTodayDate());
   let navigate =useNavigate()
+  let token =sessionStorage.getItem('token')
  console.log(excelData)
   // Function to read the Excel file
   const readExcelFile = (file) => {
@@ -34,7 +35,7 @@ export default function Trips() {
     const fileInput = document.getElementById('fileInput');
     fileInput.click();
     if (excelData && excelData.length !== 0) {
-      navigate('/reports');
+      navigate('/excel');
   }
   
   };
@@ -50,11 +51,14 @@ export default function Trips() {
       if (data.status === 200) {
         setTrips(data.data.data);
         setLoading(false);
-        console.log('trip', data)
+        
       }
     } catch (err) {
       console.log(err);
       setLoading(false);
+      if(err.response.data.message =="Authorization Failed"){
+        nagivate('/login')
+      }
     }
   }
 
@@ -71,6 +75,9 @@ export default function Trips() {
       }
     } catch (err) {
       console.log(err);
+      if(err.response.data.message =="Authorization Failed"){
+        nagivate('/login')
+      }
     }
   }
 
@@ -118,8 +125,8 @@ export default function Trips() {
         </div>
       </div>
       <div className="container-fluid bg-light">
-        <div className="d-flex justify-content-between pt-3 widdth m-auto">
-          <div className=' w-25'>
+        <div className="d-flex input-child justify-content-between pt-3 widdth m-auto">
+          <div className=' w-25 input-see '>
             <input type="search" className='form-control w-100' placeholder='search' />
             <input
               type="date"
@@ -130,7 +137,7 @@ export default function Trips() {
           </div>
           <div>
             <input id="fileInput" type="file" style={{ display: 'none' }} onChange={(e) => readExcelFile(e.target.files[0])} />
-            <button className='btn btn-bg' onClick={handleUploadClick}>Upload Excel File</button>
+            <Link className='btn btn-bg margin-btn' onClick={handleUploadClick}>Upload Excel File</Link>
             
           </div>
 

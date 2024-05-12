@@ -12,7 +12,7 @@ export default function UpDateTriplayout() {
   <div className='bg-color'><Sidebar/></div>
   <div style={{width: isOpen? "84%" :'99%'}}>
   <h3 className='p-5'>Update Trip</h3>
-  <div className='bg-light m-auto pb-4'style={{width:'55%'}}><Outlet/></div>
+  <div className='bg-light m-auto pb-4 outlet-width'><Outlet/></div>
  </div>
  </div>
    

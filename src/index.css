@@ -132,15 +132,16 @@ position: relative;
 .outlet-width{
   width: 55%;
 }
+
 @media (max-width:575px) {
 .input-container{
   display: block !important;
 }
+.input-child{
+  display: block !important;
+}
 .input-width{
   width: 100% !important;
-}
-.nav-list{
-  display: inline;
 }
 .outlet-width{
   width: 80%;
@@ -148,13 +149,20 @@ position: relative;
 .padding-images{
   padding-left: 15px;
 }
+.margin-btn{
+  margin-bottom: 10px;
+}
+.input-see{
+  width: 80% !important;
+}
+
 }
 @media (min-width:576px) and (max-width:767px) {
   .input-container{
     display: block !important;
   }
-  .nav-list{
-    display: inline;
+  .input-child{
+    display: block !important;
   }
   .input-width{
     width: 100% !important;
@@ -165,6 +173,13 @@ position: relative;
   .padding-images{
     padding-left: 15px;
   }
+  .margin-btn{
+    margin-bottom: 10px;
+  }
+  .input-see{
+    width: 60% !important;
+  }
+
 }
 
 @media (min-width:768px) and (max-width:991px) {
@@ -174,14 +189,14 @@ position: relative;
   .input-width{
     width: 100% !important;
   }
-  .nav-list{
-    display: inline;
-  }
   .outlet-width{
     width: 90%;
   }
   .padding-images{
     padding-left: 15px;
+  }
+  .input-see{
+    width: 50% !important;
   }
 }
 @media (min-width:992px) and (max-width:1199px) {
@@ -193,6 +208,9 @@ position: relative;
   }
   .outlet-width{
     width: 70%;
+  }
+  .input-see{
+    width: 40% !important;
   }
 }
 

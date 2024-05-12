@@ -294,7 +294,7 @@ export default function UpDateTrip() {
           </div>
         </div>
         {apiError && <div className="alert alert-danger">{apiError}</div>}
-        <button type='submit' className='btn-bg btn ms-auto d-block w-25 my-3 mx-3 fw-bold' disabled={!trip.isValid && trip.dirty}>{btnloading ? <Loading/> : 'Update'}</button>
+        <div className='text-end'><button type='submit' className='btn-bg btn px-5 py-2 my-3 mx-3 fw-bold' disabled={!trip.isValid && trip.dirty}>{btnloading ? <Loading/> : 'Update'}</button></div>
       </form>
     </div>
   )

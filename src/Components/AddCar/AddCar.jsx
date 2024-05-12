@@ -126,8 +126,8 @@ const validationSchema = yup.object().shape({
     <>
     <h5 className='px-3 pt-3'>Add Car Information</h5>
     <form onSubmit={formik.handleSubmit}>
-      <div className='d-flex'>
-<div className='w-50'>
+      <div className='d-flex input-container'>
+<div className='w-50 input-width'>
 <input
         type="text"
         name="carType"
@@ -181,7 +181,7 @@ const validationSchema = yup.object().shape({
     ""
   )}
 </div>
-<div className='w-50 d-flex  gap-5'>
+<div className='w-50 d-flex  gap-5 padding-images'>
 <div className='mt-3 mb-3'>
      <label htmlFor="registerImageUpload">
     
@@ -211,16 +211,8 @@ const validationSchema = yup.object().shape({
   )}
 </div>
 
-      {/* <input
-        type="file"
-        name="insuranceImage"
-        onChange={(event) => formik.setFieldValue('insuranceImage', event.currentTarget.files[0])}
-        onBlur={formik.handleBlur}
-        className="form-control  my-4"
-      />
-      {formik.touched.insuranceImage && formik.errors.insuranceImage && <div className="alert alert-danger">{formik.errors.insuranceImage}</div>}
-       */}
- <div className='mt-3'>
+  
+ <div className='mt-3 me-md-5 me-xl-0  '>
      <label htmlFor="insuranceImageUpload">
     
           {insuranceImage ? (
@@ -232,7 +224,7 @@ const validationSchema = yup.object().shape({
             <i className="fa-solid fa-plus bg-i" ></i>
            </div>
           )}
-          <p className=' p-color'>Insurance image</p>
+          <p className=' p-color '>Insurance image</p>
         </label>
         <input
           id="insuranceImageUpload"
@@ -258,7 +250,7 @@ const validationSchema = yup.object().shape({
  
 
 {apiError && <div className="alert alert-danger">{apiError}</div>}
-<button type='submit' className='btn-bg btn ms-auto d-block w-25 my-3 mx-3 fw-bold'   disabled={!formik.isValid && formik.dirty}>{btnloading ? <Loading/> : 'Next'}</button>
+<div  className='text-end'><button type='submit' className='btn-bg btn px-5 py-2 my-3 mx-3 fw-bold'   disabled={!formik.isValid && formik.dirty}>{btnloading ? <Loading/> : 'Next'}</button></div>
     </form>
     </>
   );

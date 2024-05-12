@@ -8,14 +8,11 @@ export default function TripSkeleton({cards}) {
     {Array(cards).fill(0).map((item, index) => (
       <div className='row my-3 py-3 justify-content-around' key={index}>
       
-        <div className="col-md-1 skeleton-animation"><Skeleton width={150} height={12}/></div>
-        <div className="col-md-1 skeleton-animation"><Skeleton width={150} height={12} /></div>
-        <div className="col-md-1 skeleton-animation"><Skeleton width={150} height={12}/></div>
-        <div className="col-md-1 skeleton-animation"><Skeleton width={150} height={12}/></div>
-        <div className="col-md-1 skeleton-animation"><Skeleton width={150} height={12}/></div>
-        <div className="col-md-1 skeleton-animation"><Skeleton width={150} height={12}/></div>
-        <div className="col-md-1 skeleton-animation"><Skeleton width={150} height={12}/></div>
-        <div className="col-md-1 skeleton-animation"><Skeleton width={150} height={12}/></div>
+        <div className="col-md-2 skeleton-animation"><Skeleton width={150} height={12}/></div>
+        <div className="col-md-2 skeleton-animation"><Skeleton width={150} height={12} /></div>
+        <div className="col-md-2 skeleton-animation"><Skeleton width={150} height={12}/></div>
+        <div className="col-md-2 skeleton-animation"><Skeleton width={150} height={12}/></div>
+       
       </div>
     ))}
   </div>

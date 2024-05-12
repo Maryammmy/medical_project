@@ -303,10 +303,6 @@ export default function PersonalData() {
               {formik.errors.profile && formik.touched.profile ? <div className="alert alert-danger">{formik.errors.profile}</div> : ''}
             </div>
 
-
-
-            {/* <input type="file"className='form-control  my-4'name="nationalBack"onChange={(event) => formik.setFieldValue("nationalBack", event.currentTarget.files[0])} onBlur={formik.handleBlur}/>
-        {formik.errors.nationalBack && formik.touched.nationalBack ? <div className="alert alert-danger">{formik.errors.nationalBack}</div> : ''} */}
             <div className='d-flex gap-5 padding-images'>
               <div>
                 <label htmlFor="nationalFrontUpload">
@@ -363,7 +359,7 @@ export default function PersonalData() {
 
 
         {apiError && <div className="alert alert-danger">{apiError}</div>}
-        <button type='submit' className='btn-bg btn ms-auto d-block w-25 my-3 mx-3 fw-bold' disabled={!formik.isValid && formik.dirty}>{btnloading ? <Loading/> : 'Next'}</button>
+       <div className='text-end '> <button type='submit' className='btn-bg btn my-3 mx-3 fw-bold px-5 py-2' disabled={!formik.isValid && formik.dirty}>{btnloading ? <Loading/> : 'Next'}</button></div>
 
       </form>
     </>

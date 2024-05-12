@@ -11,13 +11,14 @@ export default function AssignDriver() {
 
 const [loading,setLoading] =useState(true)
 const [driver,setDriver] =useState([])
-let {baseUrl,token} =useContext(storecontext)
+let {baseUrl} =useContext(storecontext)
   const [selectedDriverId, setSelectedDriverId] = useState(null);
 const location = useLocation(); // Use useLocation hook to access location state
 const { latitude, longitude } = location.state;
 const [btnloading, setbtnloading] = useState(false);
 const [apiError, setApiError] = useState(null);
 let navigate = useNavigate();
+let token =sessionStorage.getItem('token')
 let {id} =useParams()
 let obj ={
   driver : selectedDriverId
@@ -43,6 +44,9 @@ let obj ={
     } catch (err) {
       console.log(err);
       setLoading(false)
+      if(err.response.data.message =="Authorization Failed"){
+        nagivate('/login')
+      }
     
     } 
   }

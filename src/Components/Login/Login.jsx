@@ -9,8 +9,6 @@ import logologin from '../../assets/images/LOGO1_Medicurb_page-0001-removebg-pre
 import { useNavigate } from 'react-router-dom';
 import { storecontext } from '../Context/StorecontextProvider';
 import Loading from '../Loading/Loading';
-import  secureLocalStorage  from  "react-secure-storage";
-
 export default function Login() {
 
 
@@ -23,12 +21,12 @@ let {baseUrl,token} =useContext(storecontext)
 // expirationDate.setDate(expirationDate.getDate() + 1);
 // const expires = expirationDate.toUTCString();
 
-const expirationDate = new Date();
-// Set the expiration date to one minute from the current time
-expirationDate.setTime(expirationDate.getTime() + (1 * 60 * 1000)); // 1 minute in milliseconds
+// const expirationDate = new Date();
+// // Set the expiration date to one minute from the current time
+// expirationDate.setTime(expirationDate.getTime() + (1 * 60 * 1000)); // 1 minute in milliseconds
 
-// Format the expiration date to comply with the cookie format (GMT string)
-const expires = expirationDate.toUTCString();
+// // Format the expiration date to comply with the cookie format (GMT string)
+// const expires = expirationDate.toUTCString();
 
   const onShowHide =()=>{
     setshow((prev)=>!prev)
@@ -42,19 +40,17 @@ const expires = expirationDate.toUTCString();
         console.log("API Response:", response);
        
         
-       document.cookie=`loginstuts==loginin`
-        secureLocalStorage.setItem('token', response.data.token.toString());
+      //  document.cookie=`loginstuts==loginin`
+      //   secureLocalStorage.setItem('token', response.data.token.toString());
         
 
       
 
-      console.log('hh',typeof(response.data.token))
-      
-       
-        console.log(response.data.token)
-       
-        sessionStorage.setItem('token', response.data.token);
-        navigate('/dashboard')
+      // console.log('hh',typeof(response.data.token))
+      sessionStorage.setItem('token', response.data.token);
+      navigate('/dashboard')
+     
+       console.log(typeof(response.data.token))
      
         setbtnloading(false)
       })
