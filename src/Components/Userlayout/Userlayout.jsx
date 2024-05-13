@@ -4,11 +4,13 @@ import { Outlet } from 'react-router-dom'
 import { storecontext } from '../Context/StorecontextProvider'
 
 export default function Userlayout() {
- let {isOpen} =useContext(storecontext)
-  return (
-   <div className='d-flex '>
-  <div className='bg-color height'><Sidebar/></div>
-  <div style={{width: isOpen? "84%" :'99%'}}><Outlet/></div>
-     </div>
-  )
+   let { isOpen } = useContext(storecontext)
+   return (
+     <>
+      <div className='d-flex '>
+         <div className='bg-color'><Sidebar /></div>
+         <div style={{ width: isOpen ? "84%" : '99%' }}><Outlet /></div>
+      </div>
+     </>
+   )
 }
