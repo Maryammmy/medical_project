@@ -132,15 +132,13 @@ export default function Driverdetails() {
               border: '1px solid #ccc', // border
               borderRadius: '8px', // border radius
               boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', // shadow
-              width: '400px', // max width
+              maxWidth: '500px', // max width
               margin: 'auto', // center horizontally
               padding: '0x',
+              textAlign:'center',
               height: 'fit-content',
-              overflow: "hidden",
-              zIndex: '1050'
-
-              // display: 'flex',
-              // flexDirection: 'column',
+              // overflow: "hidden",
+              zIndex: '1050',
             },
 
           }}
