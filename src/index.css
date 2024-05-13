@@ -13,6 +13,9 @@ code {
 .bg-color{
   background-color: rgba(11, 37, 51, 1);
 }
+.height{
+  min-height: 100vh;
+}
 /* .nav{
   height: 100vh;
 } */
