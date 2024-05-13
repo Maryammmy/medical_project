@@ -15,8 +15,8 @@
 .menu li{
     padding: 15px;
 }
-.navv{
-    height: 100vh;
+.navvContainer{
+    min-height: 100vh;
 }
   
 

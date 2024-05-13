@@ -13,7 +13,7 @@ const logout=()=>{
 
   return (
     
- <nav className='navv'  style={{width: isOpen? "230px" :'80px'}} >
+ <nav className='navvContainer'  style={{width: isOpen? "230px" :'80px'}} >
   <div>
     <img src={logoSidebar} alt="logo" className={isOpen ?'w-50' :'w-100'}style={{paddingTop:isOpen? '0px' :'5px'}} />
     <i className="fa-solid fa-bars text-white  fs-2 text-center" onClick={toggle} style={{paddingLeft: isOpen? "60px" :'0px',paddingRight:isOpen?'0px' :'20px',paddingBottom:isOpen?'0px' :'30px',display: isOpen ? 'inline' :'block',paddingTop:isOpen? '0px' :'8px'}} ></i>
