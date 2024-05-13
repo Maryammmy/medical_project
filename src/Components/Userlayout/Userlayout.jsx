@@ -7,8 +7,8 @@ export default function Userlayout() {
  let {isOpen} =useContext(storecontext)
   return (
    <div className='d-flex '>
-  <div className='bg-color'><Sidebar/></div>
-  <div style={{width: isOpen? "84%" :'99%'}} className='height'><Outlet/></div>
+  <div className='bg-color height'><Sidebar/></div>
+  <div style={{width: isOpen? "84%" :'99%'}}><Outlet/></div>
      </div>
   )
 }
