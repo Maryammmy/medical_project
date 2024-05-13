@@ -132,7 +132,7 @@ export default function Driverdetails() {
               border: '1px solid #ccc', // border
               borderRadius: '8px', // border radius
               boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', // shadow
-              width: '450px', // max width
+              width: '400px', // max width
               margin: 'auto', // center horizontally
               padding: '0x',
               height: 'fit-content',
