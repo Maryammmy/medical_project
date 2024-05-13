@@ -198,7 +198,7 @@ const validationSchema = yup.object().shape({
             <i className="fa-solid fa-plus bg-i" ></i>
            </div>
           )}
-          <p className=' p-color'>Registration image</p>
+          <p className=' p-color  text-center'>Registration image</p>
         </label>
         <input
           id="registerImageUpload"
@@ -228,7 +228,7 @@ const validationSchema = yup.object().shape({
             <i className="fa-solid fa-plus bg-i" ></i>
            </div>
           )}
-          <p className=' p-color '>Insurance image</p>
+          <p className=' p-color  text-center '>Insurance image</p>
         </label>
         <input
           id="insuranceImageUpload"

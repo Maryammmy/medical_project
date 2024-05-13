@@ -282,7 +282,7 @@ export default function PersonalData() {
 
           </div>
           <div className=' w-50 input-width'>
-            <div className='mt-3 mb-4 mx-5 px-5'>
+            <div className='mt-3 mb-4 mx-5 px-5 text-center'>
               <label htmlFor="profileImageUpload">
 
                 {profileImage ? (
@@ -294,7 +294,7 @@ export default function PersonalData() {
                     <i className="fa-solid fa-plus bg-i" ></i>
                   </div>
                 )}
-                <p className=' p-color'>Profile image</p>
+                <p className=' p-color text-center'>Profile image</p>
               </label>
               <input
                 id="profileImageUpload"
@@ -316,7 +316,7 @@ export default function PersonalData() {
                     <div className=' div-img'> <img src={nationalFront} alt="Placeholder" className="placeholder-image" />
                       <i className="fa-solid fa-plus bg-i" ></i></div>
                   )}
-                  <p className='p-color'>Front national ID</p>
+                  <p className='p-color text-center'>Front national ID</p>
                 </label>
                 <input
                   id="nationalFrontUpload"
@@ -341,7 +341,7 @@ export default function PersonalData() {
                       <i className="fa-solid fa-plus bg-i" ></i>
                     </div>
                   )}
-                  <p className='p-color'>Back national ID</p>
+                  <p className='p-color text-center'>Back national ID</p>
                 </label>
                 <input
                   id="nationalBackUpload"

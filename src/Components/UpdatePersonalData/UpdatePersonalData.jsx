@@ -227,7 +227,7 @@ export default function UpdatePersonalData() {
      
       </div>
   <div className=' w-50 input-width'>
-<div className='mt-3 mb-4 mx-5 px-5'>
+<div className='mt-3 mb-4 mx-5 px-5 text-center'>
    <label htmlFor="profileImageUpload">
   
         {profileImage ? (
@@ -239,7 +239,7 @@ export default function UpdatePersonalData() {
           <i className="fa-solid fa-plus bg-i" ></i>
          </div>
         )}
-        <p className=' p-color'>Profile image</p>
+        <p className=' p-color text-center'>Profile image</p>
       </label>
       <input
         id="profileImageUpload"

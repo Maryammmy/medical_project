@@ -206,7 +206,7 @@ export default function AddCarAlbum() {
             <i className="fa-solid fa-plus bg-i" ></i>
            </div>
           )}
-          <p className=' p-color'>Front car image</p>
+          <p className=' p-color  text-center'>Front car image</p>
         </label>
         <input
           id="frontImageUpload"
@@ -235,7 +235,7 @@ export default function AddCarAlbum() {
             <i className="fa-solid fa-plus bg-i" ></i>
            </div>
           )}
-          <p className=' p-color'>Back car image</p>
+          <p className=' p-color  text-center'>Back car image</p>
         </label>
         <input
           id="backImageUpload"
@@ -266,7 +266,7 @@ export default function AddCarAlbum() {
             <i className="fa-solid fa-plus bg-i" ></i>
            </div>
           )}
-          <p className=' p-color'>Right car image</p>
+          <p className=' p-color  text-center'>Right car image</p>
         </label>
         <input
           id="rightImageUpload"
@@ -295,7 +295,7 @@ export default function AddCarAlbum() {
             <i className="fa-solid fa-plus bg-i" ></i>
            </div>
           )}
-          <p className=' p-color'>Left car image</p>
+          <p className=' p-color  text-center'>Left car image</p>
         </label>
         <input
           id="leftImageUpload"
